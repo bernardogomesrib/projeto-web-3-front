@@ -112,7 +112,7 @@ export default function NavbarConteudo({coisas}:{coisas:any[]}) {
         <a href="#" className={buttonVariants({ variant: "default" })}>
             Cadastre-se
           </a>
-          <LoginDialog Trigger={buttonVariants({ variant: "default" })} />
+          <LoginDialog Trigger={""} />
         </div>
       </nav>
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
@@ -181,7 +181,7 @@ export default function NavbarConteudo({coisas}:{coisas:any[]}) {
                 >
                   Registrar
                 </a>
-                <LoginDialog Trigger={"-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 hover:bg-gray-50 bg-transparent text-black"+buttonVariants({ variant: "ghost"})} />
+                <LoginDialog Trigger={"-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 hover:bg-gray-50 text-black bg-transparent"} />
               </div>
             </div>
           </div>
