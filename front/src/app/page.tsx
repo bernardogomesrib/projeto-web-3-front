@@ -56,9 +56,9 @@ export default function Home() {
           ))}
         </CardFooter>
       </Card>
-      <Card className="w-full md:w-[35vw] flex flex-wrap p-6">
+      <Card className="w-full md:w-[35vw] flex flex-wrap p-6 text-white">
         <h2 className="font-bold w-full md:w-[35vw] ">Últimas publicações</h2>
-        <Card className="w-full flex flex-wrap p-3">
+        <Card className="w-full flex flex-wrap p-3 text-white">
           <CardTitle className="flex justify-evenly w-full items-center"><Image src="/games.png" alt="next Logo" width={72} height={72} />Games retro</CardTitle>
           <CardContent className="flex justify-evenly items-center w-full">
             <p className="truncate" title="mario kart é over rated. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!">mario kart é over rated. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!</p>

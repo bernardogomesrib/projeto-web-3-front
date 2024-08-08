@@ -117,7 +117,7 @@ export default function NavbarConteudo({coisas}:{coisas:any[]}) {
       </nav>
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
         <div className="fixed inset-0 z-10" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-[hsl(0,0%,9%)] text-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
@@ -177,11 +177,11 @@ export default function NavbarConteudo({coisas}:{coisas:any[]}) {
                 
               <a 
                   href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 hover:bg-gray-50"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 hover:bg-gray-50 hover:text-black"
                 >
                   Registrar
                 </a>
-                <LoginDialog Trigger={"-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 hover:bg-gray-50 text-black bg-transparent"} />
+                <LoginDialog Trigger={"-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 w-full hover:bg-gray-50 hover:text-black bg-transparent text-left"} />
               </div>
             </div>
           </div>
