@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <div className="w-[99vw] flex flex-wrap gap-2 items-start">
 
-      <Card className="w-full md:w-[60vw] gap-3 flex flex-wrap ">
+      <Card className="w-full md:w-[60vw] gap-3 flex flex-wrap text-white">
         <CardHeader className="text-4xl font-bold w-full">
           <h1 className="">Boards</h1>
         </CardHeader>
