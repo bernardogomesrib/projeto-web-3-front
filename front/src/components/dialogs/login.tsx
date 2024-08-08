@@ -18,7 +18,7 @@ export function LoginDialog({Trigger}:{Trigger:string}) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Login</DialogTitle>
+          <DialogTitle className="text-center">Login</DialogTitle>
 
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -45,7 +45,7 @@ export function LoginDialog({Trigger}:{Trigger:string}) {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Cancelar</Button>
+          {/* <Button type="submit">Cancelar</Button> */}
         </DialogFooter>
       </DialogContent>
     </Dialog>
