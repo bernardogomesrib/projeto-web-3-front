@@ -24,7 +24,7 @@ const threadsPopulares = [
 
 export default function Home() {
   return (
-    <div className="w-[99vw] flex flex-wrap gap-2 items-start">
+    <div className="w-[99vw] flex flex-wrap gap-2 items-start justify-center">
 
       <Card className="w-full md:w-[60vw] gap-3 flex flex-wrap text-white">
         <CardHeader className="text-4xl font-bold w-full">
@@ -36,11 +36,11 @@ export default function Home() {
           ))}
         </CardContent>
 
-        <CardFooter className="flex flex-wrap gap-3">
+        <CardFooter className="flex flex-wrap gap-3 w-full editavel">
           <h1 className="text-4xl font-bold w-full ">Threads populares</h1>
           
           {threadsPopulares.map((thread, index) => (
-            <div key={index + "tp"} className="w-full md:w-[22%] flex flex-wrap items-center">
+            <div key={index + "tp"} className="w-full md:w-[23%] flex flex-wrap items-center">
             <Link className={"w-full " + buttonVariants({ variant: "default" })} href={thread.link}>
               {thread.thread}
             </Link>

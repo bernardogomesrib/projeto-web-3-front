@@ -16,7 +16,7 @@ export function LoginDialog({Trigger}:{Trigger:string}) {
       <DialogTrigger asChild>
        <Button className={Trigger}>Login</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] text-white">
         <DialogHeader>
           <DialogTitle className="text-center">Login</DialogTitle>
 
