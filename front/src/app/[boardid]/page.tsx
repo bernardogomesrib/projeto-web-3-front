@@ -9,7 +9,7 @@ const existentBoards = [
   "so",
   "ia"
 ]
-const Page: React.FC = ({ params }: { params: { boardid: string } }) => {
+export default function BoardPage ({ params }: { params: { boardid: string } }) {
   
   const boardid = params.boardid;
   const usouUmavez = React.useRef(false);
@@ -32,4 +32,3 @@ const Page: React.FC = ({ params }: { params: { boardid: string } }) => {
   }
 };
 
-export default Page;
