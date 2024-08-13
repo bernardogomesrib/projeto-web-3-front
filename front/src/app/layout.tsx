@@ -17,10 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className + "text-white"}>
+      <body className={inter.className +"w-[99vw]"}>
         <Navbar />
         {/* <BlueBar /> */}
-        <main className="flex min-h-screen w-[95vw] flex-col items-center justify-between ms-8">
+        <main className="flex min-h-screen w-[99vw] flex-col">
           {children}
         </main>
       </body>
