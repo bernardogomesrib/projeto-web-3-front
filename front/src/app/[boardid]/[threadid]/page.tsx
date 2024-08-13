@@ -1,17 +1,19 @@
 'use client'
 import { notFound, redirect, usePathname } from 'next/navigation';
+import React from 'react';
 
-const boardsExistentes  = [
+const boardsExistentes = [
   "hw",
   "elt",
   "gms",
   "pg",
   "so",
-  "ia"
+  "ia",
+  "gm"
 ]
-const threadsExistentes  = [
-  "gm",
-  "elt",
+const threadsExistentes = [
+  "123",
+  "yryry",
   "pg",
   "so",
   "ia"
@@ -19,10 +21,18 @@ const threadsExistentes  = [
 export default function ThreadPage() {
 
   const [empty, boardid, threadid] = usePathname().split('/');
-  console.log(boardid, threadid);
+  const usouUmavez = React.useRef(false);
+  React.useEffect(() => {
+    if (!usouUmavez.current) {
+      console.log("Board ID: ", boardid);
+      console.log("Thread ID: ", threadid);
+      usouUmavez.current = true;
+    }
+  });
+
   if (boardsExistentes.includes(boardid)) {
-    console.log("Board existe");
-    if(threadsExistentes.includes(threadid)){
+
+    if (threadsExistentes.includes(threadid)) {
       return (
         <div className="w-[99vw] flex flex-wrap gap-2 items-start justify-center">
           <h1>Board ID: {boardid}</h1> <br />
@@ -31,12 +41,12 @@ export default function ThreadPage() {
         </div>
       );
 
-    }else{
-      console.log("Thread não existe");
+    } else {
+
       return redirect(notFound());
     }
   } else {
-    console.log("Board não existe");
+
     return redirect(notFound());
   }
 }
