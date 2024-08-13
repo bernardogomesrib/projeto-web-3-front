@@ -1,5 +1,5 @@
 'use client'
-import { notFound, redirect, usePathname } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import React from 'react';
 
 const boardsExistentes = [
@@ -18,9 +18,10 @@ const threadsExistentes = [
   "so",
   "ia"
 ]
-export default function ThreadPage() {
-
-  const [empty, boardid, threadid] = usePathname().split('/');
+export default function ThreadPage({ params }: { params: { boardid: string,threadid:string } }) {
+  const boardid = params.boardid;
+  const threadid = params.threadid;
+  
   const usouUmavez = React.useRef(false);
   React.useEffect(() => {
     if (!usouUmavez.current) {
