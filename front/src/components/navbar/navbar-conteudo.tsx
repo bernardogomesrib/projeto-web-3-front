@@ -54,8 +54,8 @@ export default function NavbarConteudo({coisas}:{coisas:any[]}) {
           </button>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-3">
-        {openCadastrese && <Cadastrese setClose={() => setOpenCadastrese(!openCadastrese)} />}
-        <Button onClick={()=>{setOpenCadastrese(!openCadastrese)}}>Cadastre-se</Button>
+        {openCadastrese ? (<Cadastrese setClose={() => setOpenCadastrese(!openCadastrese)} />):(null)}
+        <Button onClick={()=>{setOpenCadastrese(true)}}>Cadastre-se</Button>
           <LoginDialog Trigger={""} />
         </div>
       </nav>
