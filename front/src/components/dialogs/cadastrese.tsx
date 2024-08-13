@@ -61,7 +61,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
                 <Label htmlFor='termos'>Aceito os termos de serviço</Label>
               </div>
               <div className='w-full items-center flex justify-center pb-6'>
-                <Button onClick={executarCadastro}>Cadastrar</Button>
+                <Button className="bg-[#BF32DC]"onClick={executarCadastro}>Cadastrar</Button>
               </div>
             </div>
           </div>
