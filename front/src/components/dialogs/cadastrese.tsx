@@ -31,7 +31,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
           <Dialog.Description></Dialog.Description>
          
           <div className='w-full flex border-t border-t-1-white '>
-            <div id="labels" className='border-r border-t border-r-1-white border-t-white w-[30%] text-center flex flex-wrap pt-6 content-start gap-3'>
+            <div id="labels" className='border-r w-[30%] text-center flex flex-wrap pt-6 content-start gap-3'>
               <Label className="h-10 w-full text-center flex" htmlFor="nome">
                 <div className='w-full flex items-center'><div className='w-full flex justify-center'>Nome de usuário<div className='text-[rgb(191,50,220)]'>*</div></div></div>
               </Label>
@@ -55,7 +55,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
               <Input className='w-full' id="nome" name='nome' placeholder="Pedro Duarte" onChange={(e) => { setFullName(e.target.value) }} />
               <Input className='w-full' id="email" name='email' type='email' placeholder="email@email.com" onChange={(e) => { setEmail(e.target.value) }} />
               <Input className='w-full' id="password" name='senha' type='password' placeholder='sua senha' onChange={(e) => { setPassword(e.target.value) }} />
-              <Input className='w-full' name="date" id='dia' type='date' onChange={(e) => { setDate(e.target.value) }} />
+              <Input className='w-full sm:max-w-[150px]' name="date" id='dia' type='date' onChange={(e) => { setDate(e.target.value) }} />
               <div className='w-full h-10 items-center flex gap-2'>
                 <Checkbox checked={termos} id="termos" onClick={() => { setTermos(!termos) }} />
                 <Label htmlFor='termos'>Aceito os termos de serviço</Label>

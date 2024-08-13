@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <div className="w-[99vw] flex flex-wrap gap-2 items-start justify-center">
 
-      <Card className="w-full md:w-[60vw] gap-3 flex flex-wrap text-white">
+      <Card className="w-[96%] md:w-[60vw] gap-3 flex flex-wrap text-white">
         <CardHeader className="text-4xl font-bold w-full">
           <h1 className="">Boards</h1>
         </CardHeader>
@@ -58,13 +58,17 @@ export default function Home() {
       </Card>
       <Card className="w-full md:w-[35vw] flex flex-wrap p-6 text-white">
         <h2 className="font-bold w-full md:w-[35vw] ">Últimas publicações</h2>
-        <Card className="w-full flex flex-wrap p-3 text-white">
-          <CardTitle className="flex justify-evenly w-full items-center"><Image src="/games.png" alt="next Logo" width={72} height={72} />Games retro</CardTitle>
+        {ultimasPubs.map((pub, index) => (
+          <Link key={index+"utp"} className="w-full" href={pub.threadLink}>
+          <Card  className="w-full flex flex-wrap p-3 text-white">
+          <CardTitle className="flex justify-right w-full items-center gap-3"><Image className="rounded-[100%]"src={pub.threadImage? pub.threadImage:"/fallbackimage.jpg"} alt="thread image" width={72} height={72} />{pub.threadName}</CardTitle>
           <CardContent className="flex justify-evenly items-center w-full">
-            <p className="truncate" title="mario kart é over rated. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!">mario kart é over rated. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!</p>
+            <p className="truncate" title={pub.threadText}>{pub.threadText}</p>
           </CardContent>
 
         </Card>
+        </Link>
+        ))}
       </Card>
 
 

@@ -1,4 +1,9 @@
 "use client"
 export default function BlueBar(){
-return (<div className="w-full bg-blue-500 h-[20px]"></div>)
+return (
+    <div className="h-[20px] w-full flex justify-center">
+        <div className="w-[97%] bg-primary h-[20px]"></div>
+    </div>
+
+)
 }

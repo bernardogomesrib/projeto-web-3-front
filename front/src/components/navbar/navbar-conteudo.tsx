@@ -14,6 +14,7 @@ import {
   SquaresPlusIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 import { useState } from 'react'
 import Cadastrese from '../dialogs/cadastrese'
 import { LoginDialog } from '../dialogs/login'
@@ -35,13 +36,13 @@ export default function NavbarConteudo({coisas}:{coisas:any[]}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openCadastrese, setOpenCadastrese] = useState(false)
   return (
-    <header className="bg-transparent text-white">
-      <nav aria-label="Global" className="mx-auto flex items-center justify-between p-6  text-white">
+    <header className="bg-transparent w-[99vw]">
+      <nav aria-label="Global" className="mx-auto flex items-center justify-between p-6  ">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <h1 className="text-4xl font-bold">ITThreads</h1>
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -61,7 +62,7 @@ export default function NavbarConteudo({coisas}:{coisas:any[]}) {
       </nav>
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
         <div className="fixed inset-0 z-10" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-[hsl(0,0%,9%)] text-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-card-foreground  px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
