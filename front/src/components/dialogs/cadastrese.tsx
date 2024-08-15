@@ -62,6 +62,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
               </div>
               <div className='w-full items-center flex justify-center pb-6'>
                 <Button className="bg-[#BF32DC] px-10 text-sm" onClick={executarCadastro}>Cadastrar</Button>
+                <Button className="bg-[#BF32DC]" onClick={executarCadastro}>Cadastrar</Button>
               </div>
             </div>
           </div>

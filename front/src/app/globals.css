@@ -60,16 +60,20 @@
     --font-color: #777575;
   }
 }
-body{
+
+body {
   color: var(--font-color);
 }
-.editavel{
+
+.editavel {
   display: flex;
 }
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
