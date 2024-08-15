@@ -36,12 +36,12 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
                 <div className='w-full flex items-center'><div className='w-full flex justify-center'>Nome de usuário<div className='text-[rgb(191,50,220)]'>*</div></div></div>
               </Label>
               <Label className="h-10 w-full text-center flex" htmlFor="email">
-                <div className='w-full flex items-center'><div className='w-full flex justify-center'>Email<div className='text-[rgb(191,50,220)]'>*</div></div></div>
-
+              <div className='w-full flex items-center'><div className='w-full flex justify-center'>Email<div className='text-[rgb(191,50,220)]'>*</div></div></div>
+                
               </Label>
               <Label className="h-10 w-full text-center flex" htmlFor="password">
-                <div className='w-full flex items-center'><div className='w-full flex justify-center'>Senha<div className='text-[rgb(191,50,220)]'>*</div></div></div>
-
+              <div className='w-full flex items-center'><div className='w-full flex justify-center'>Senha<div className='text-[rgb(191,50,220)]'>*</div></div></div>
+                
               </Label>
               <Label className="h-10 w-full text-center flex" htmlFor="date">
                 <div className='w-full flex items-center'><div className='w-full flex justify-center'>Data de Nascimento<div className='text-[rgb(191,50,220)]'>*</div></div></div>
@@ -49,7 +49,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
               <Label className="h-10 w-full text-center flex" >
                 <div className='w-full flex items-center'><div className='w-full text-[rgb(191,50,220)]'>(*) Campo Obrigatório</div></div>
               </Label>
-
+              
             </div>
             <div id="inputs" className='w-[65%] pt-6 pl-6 gap-3 flex flex-wrap'>
               <Input className='w-full' id="nome" name='nome' placeholder="Pedro Duarte" onChange={(e) => { setFullName(e.target.value) }} />
@@ -61,8 +61,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
                 <Label htmlFor='termos'>Aceito os termos de serviço</Label>
               </div>
               <div className='w-full items-center flex justify-center pb-6'>
-                <Button className="bg-[#BF32DC] px-10 text-sm" onClick={executarCadastro}>Cadastrar</Button>
-                <Button className="bg-[#BF32DC]" onClick={executarCadastro}>Cadastrar</Button>
+                <Button className="bg-[#BF32DC]"onClick={executarCadastro}>Cadastrar</Button>
               </div>
             </div>
           </div>

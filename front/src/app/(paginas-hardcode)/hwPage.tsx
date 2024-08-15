@@ -1,7 +1,8 @@
-import React from 'react';
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHeader, TableHead, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { MessageCircle } from 'lucide-react';
-
+// o parenteses entre o nome da pasta faz com que ela
+// não vire uma rota! isso ajuda a agrupar
+// arquivos ou rotas para organizar o projeto!!
 const hardwareData = [
     {
         image: <MessageCircle className="w-6 h-6 text-blue-500" />,

@@ -8,9 +8,18 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import login from "@/lib/login"
 import Link from "next/link"
+import { useState } from "react"
+import Cadastrese from "./cadastrese"
 
 export function LoginDialog({ Trigger }: { Trigger: string }) {
+  const [verCadastrese, setVerCadastrese] = useState(false)
+  const [email, setEmail] = useState('')
+  const [senha, setSenha] = useState('')
+  const logar =async () => {
+    login(email, senha);
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -28,7 +37,9 @@ export function LoginDialog({ Trigger }: { Trigger: string }) {
             </Label>
             <Input
               id="name"
-              className="col-span-3 bg-[#706F6F] border-none focus:ring-0"
+              className="col-span-3 "
+              placeholder="Digite seu nome de usuário ou e-mail"
+              onChange={(e) => { setEmail(e.target.value) }}
             />
           </div>
           <div className="grid gap-2">
@@ -38,7 +49,9 @@ export function LoginDialog({ Trigger }: { Trigger: string }) {
             <Input
               id="Senha"
               type="password"
-              className="col-span-3 bg-[#706F6F] border-none focus:ring-0"
+              className="col-span-3 "
+              placeholder="Digite sua senha"
+              onChange={(e) => { setSenha(e.target.value) }}
             />
           </div>
           <div>
@@ -52,30 +65,31 @@ export function LoginDialog({ Trigger }: { Trigger: string }) {
               }}>Esqueceu a senha?</Link>
           </div>
           <div className="text-center mt-4">
-            <Button className="bg-[#BF32DC] px-10 text-sm" type="submit" style={{
+            <Button onClick={logar} className="bg-[#BF32DC] px-10 text-sm" type="submit" style={{
               textShadow: `
-                  -1px -1px 0 #000, 
-                  1px -1px 0 #000, 
-                  -1px 1px 0 #000, 
+                  -1px -1px 0 #000,
+                  1px -1px 0 #000,
+                  -1px 1px 0 #000,
                   1px 1px 0 #000`
             }}>Login</Button>
           </div>
           <div className="text-center">
             <span className="text-[#BF32DC] font-bold text-sm" style={{
               textShadow: `
-                  -1px -1px 0 #000, 
-                  1px -1px 0 #000, 
-                  -1px 1px 0 #000, 
+                  -1px -1px 0 #000,
+                  1px -1px 0 #000,
+                  -1px 1px 0 #000,
                   1px 1px 0 #000`
             }}>Não tem uma conta? </span>
-            <Link href="/cadastrar" className=" text-[#6370DB] font-bold hover:underline text-sm"
+            {verCadastrese ? (<Cadastrese setClose={()=>{setVerCadastrese(!verCadastrese)}}/>):(null)}
+            <Button  onClick={()=>{setVerCadastrese(!verCadastrese)}} className=" text-[#6370DB] font-bold hover:underline text-sm bg-transparent hover:bg-transparent p-0"
               style={{
                 textShadow: `
-                  -1px -1px 0 #000, 
-                  1px -1px 0 #000, 
-                  -1px 1px 0 #000, 
+                  -1px -1px 0 #000,
+                  1px -1px 0 #000,
+                  -1px 1px 0 #000,
                   1px 1px 0 #000`
-              }}>Cadastre-se</Link>
+              }}>Cadastre-se</Button>
           </div>
         </div>
       </DialogContent>

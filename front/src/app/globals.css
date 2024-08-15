@@ -30,6 +30,8 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --font-color: white;
+    --colorbginpt: #706F6F;
+    --placeholdercolor:#b4b3b3;
   }
 
   .dark {
@@ -58,22 +60,20 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
     --font-color: #777575;
+    --colorbginpt: #b4b3b3;
+    --placeholdercolor:#b4b3b3;
   }
 }
-
-body {
+body{
   color: var(--font-color);
 }
-
-.editavel {
+.editavel{
   display: flex;
 }
-
 @layer base {
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
   }
