@@ -29,19 +29,19 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
         <Dialog.Content className="fixed left-[50%] top-[50%] z-50 grid w-full lg:w-[1024px] translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background pt-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg text-white">
           <Dialog.Title className="text-lg font-semibold leading-none tracking-tight text-center">Cadastre-se</Dialog.Title>
           <Dialog.Description></Dialog.Description>
-         
+
           <div className='w-full flex border-t border-t-1-white '>
             <div id="labels" className='border-r w-[30%] text-center flex flex-wrap pt-6 content-start gap-3'>
               <Label className="h-10 w-full text-center flex" htmlFor="nome">
                 <div className='w-full flex items-center'><div className='w-full flex justify-center'>Nome de usuário<div className='text-[rgb(191,50,220)]'>*</div></div></div>
               </Label>
               <Label className="h-10 w-full text-center flex" htmlFor="email">
-              <div className='w-full flex items-center'><div className='w-full flex justify-center'>Email<div className='text-[rgb(191,50,220)]'>*</div></div></div>
-                
+                <div className='w-full flex items-center'><div className='w-full flex justify-center'>Email<div className='text-[rgb(191,50,220)]'>*</div></div></div>
+
               </Label>
               <Label className="h-10 w-full text-center flex" htmlFor="password">
-              <div className='w-full flex items-center'><div className='w-full flex justify-center'>Senha<div className='text-[rgb(191,50,220)]'>*</div></div></div>
-                
+                <div className='w-full flex items-center'><div className='w-full flex justify-center'>Senha<div className='text-[rgb(191,50,220)]'>*</div></div></div>
+
               </Label>
               <Label className="h-10 w-full text-center flex" htmlFor="date">
                 <div className='w-full flex items-center'><div className='w-full flex justify-center'>Data de Nascimento<div className='text-[rgb(191,50,220)]'>*</div></div></div>
@@ -49,7 +49,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
               <Label className="h-10 w-full text-center flex" >
                 <div className='w-full flex items-center'><div className='w-full text-[rgb(191,50,220)]'>(*) Campo Obrigatório</div></div>
               </Label>
-              
+
             </div>
             <div id="inputs" className='w-[65%] pt-6 pl-6 gap-3 flex flex-wrap'>
               <Input className='w-full' id="nome" name='nome' placeholder="Pedro Duarte" onChange={(e) => { setFullName(e.target.value) }} />
@@ -61,7 +61,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
                 <Label htmlFor='termos'>Aceito os termos de serviço</Label>
               </div>
               <div className='w-full items-center flex justify-center pb-6'>
-                <Button onClick={executarCadastro}>Cadastrar</Button>
+                <Button className="bg-[#BF32DC] px-10 text-sm" onClick={executarCadastro}>Cadastrar</Button>
               </div>
             </div>
           </div>

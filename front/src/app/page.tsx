@@ -30,6 +30,8 @@ export default function Home() {
         <CardHeader className="text-4xl font-bold w-full">
           <h1 className="">Boards</h1>
         </CardHeader>
+
+
         <CardContent className="w-full flex flex-wrap gap-2 justify-evenly">
           {threads.map((thread, index) => (
             <Link key={index + "links"} href={thread.link} className={"w-[45%] " + buttonVariants({ variant: "default" })}>{thread.thread}</Link>
@@ -38,36 +40,42 @@ export default function Home() {
 
         <CardFooter className="flex flex-wrap gap-3 w-full editavel">
           <h1 className="text-4xl font-bold w-full ">Threads populares</h1>
-          
+
           {threadsPopulares.map((thread, index) => (
             <div key={index + "tp"} className="w-full md:w-[23%] flex flex-wrap items-center">
-            <Link className={"w-full " + buttonVariants({ variant: "default" })} href={thread.link}>
-              {thread.thread}
-            </Link>
-            <div className="w-full relative pb-[100%]">
-              <Image
-                src={thread.image}
-                alt="icone"
-                fill
-                style={{ objectFit: "cover" }}
-              />
+              <Link className={"w-full " + buttonVariants({ variant: "default" })} href={thread.link}>
+                {thread.thread}
+              </Link>
+              <div className="w-full relative pb-[100%]">
+                <Image
+                  src={thread.image}
+                  alt="icone"
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
             </div>
-          </div>
           ))}
         </CardFooter>
+
+
       </Card>
+
+
+
+
       <Card className="w-full md:w-[35vw] flex flex-wrap p-6 text-white">
         <h2 className="font-bold w-full md:w-[35vw] ">Últimas publicações</h2>
         {ultimasPubs.map((pub, index) => (
-          <Link key={index+"utp"} className="w-full" href={pub.threadLink}>
-          <Card  className="w-full flex flex-wrap p-3 text-white">
-          <CardTitle className="flex justify-right w-full items-center gap-3"><Image className="rounded-[100%]"src={pub.threadImage? pub.threadImage:"/fallbackimage.jpg"} alt="thread image" width={72} height={72} />{pub.threadName}</CardTitle>
-          <CardContent className="flex justify-evenly items-center w-full">
-            <p className="truncate" title={pub.threadText}>{pub.threadText}</p>
-          </CardContent>
+          <Link key={index + "utp"} className="w-full" href={pub.threadLink}>
+            <Card className="w-full flex flex-wrap p-3 text-white">
+              <CardTitle className="flex justify-right w-full items-center gap-3"><Image className="rounded-[100%]" src={pub.threadImage ? pub.threadImage : "/fallbackimage.jpg"} alt="thread image" width={72} height={72} />{pub.threadName}</CardTitle>
+              <CardContent className="flex justify-evenly items-center w-full">
+                <p className="truncate" title={pub.threadText}>{pub.threadText}</p>
+              </CardContent>
 
-        </Card>
-        </Link>
+            </Card>
+          </Link>
         ))}
       </Card>
 
