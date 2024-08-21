@@ -1,18 +1,21 @@
 export default async function login(loging: string, password: string) {
-
     console.log(loging, password);
-    const result = await fetch("http://localhost:3000/login", {
+    
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-             'accept': 'application/json'
+            "Accept": "application/json"
         },
         body: JSON.stringify({
-            email: loging,
+            login: loging,
             password: password
         }),
-        mode: 'cors'
+        mode: 'cors' 
     });
-    console.log(result);
-    
+
+    const data = await result.json();
+    console.log('Resposta:', data);
+
+    return result;
 }
