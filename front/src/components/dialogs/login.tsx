@@ -18,7 +18,8 @@ export function LoginDialog({ Trigger }: { Trigger: string }) {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const logar =async () => {
-    login(email, senha);
+    const a = await login(email, senha);
+    console.log(a);
   }
   return (
     <Dialog>

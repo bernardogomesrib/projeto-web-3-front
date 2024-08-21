@@ -1,3 +1,4 @@
+import NewUser from '@/lib/user';
 import * as Dialog from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
 import { useState } from 'react';
@@ -14,11 +15,17 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
   const [date, setDate] = useState('');
   const [termos, setTermos] = useState(false);
 
-  const executarCadastro = () => {
+  const executarCadastro =async () => {
     console.log(fullName, email, password, date, termos);
     if (termos) {
-      alert('Cadastrado com sucesso');
-      setClose();  // Fecha o diálogo após o cadastro
+      const res = await NewUser(email, password, fullName);
+      console.log(res);
+      if (res.ok){
+        alert('Cadastrado com sucesso');
+        setClose();  // Fecha o diálogo após o cadastro
+      }else
+        alert('Erro ao cadastrar');
+      
     }
   };
 
@@ -43,9 +50,9 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
               <div className='w-full flex items-center'><div className='w-full flex justify-center'>Senha<div className='text-[rgb(191,50,220)]'>*</div></div></div>
                 
               </Label>
-              <Label className="h-10 w-full text-center flex" htmlFor="date">
+              {/* <Label className="h-10 w-full text-center flex" htmlFor="date">
                 <div className='w-full flex items-center'><div className='w-full flex justify-center'>Data de Nascimento<div className='text-[rgb(191,50,220)]'>*</div></div></div>
-              </Label>
+              </Label> */}
               <Label className="h-10 w-full text-center flex" >
                 <div className='w-full flex items-center'><div className='w-full text-[rgb(191,50,220)]'>(*) Campo Obrigatório</div></div>
               </Label>
@@ -55,7 +62,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
               <Input className='w-full' id="nome" name='nome' placeholder="Pedro Duarte" onChange={(e) => { setFullName(e.target.value) }} />
               <Input className='w-full' id="email" name='email' type='email' placeholder="email@email.com" onChange={(e) => { setEmail(e.target.value) }} />
               <Input className='w-full' id="password" name='senha' type='password' placeholder='sua senha' onChange={(e) => { setPassword(e.target.value) }} />
-              <Input className='w-full sm:max-w-[150px]' name="date" id='dia' type='date' onChange={(e) => { setDate(e.target.value) }} />
+              {/* <Input className='w-full sm:max-w-[150px]' name="date" id='dia' type='date' onChange={(e) => { setDate(e.target.value) }} /> */}
               <div className='w-full h-10 items-center flex gap-2'>
                 <Checkbox checked={termos} id="termos" onClick={() => { setTermos(!termos) }} />
                 <Label htmlFor='termos'>Aceito os termos de serviço</Label>

@@ -1,18 +1,18 @@
-'use client';
 export default async function login(loging: string, password: string) {
-    const result = await fetch("http://191.233.252.142:3000/login/", {
+
+    console.log(loging, password);
+    const result = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+             'accept': 'application/json'
         },
         body: JSON.stringify({
             email: loging,
             password: password
-        })
+        }),
+        mode: 'cors'
     });
     console.log(result);
-    if (result.ok) {
-        const data = await result.json();
-        document.cookie = `token=${'BEARER' + data.token}; HttpOnly`;
-    }
+    
 }
