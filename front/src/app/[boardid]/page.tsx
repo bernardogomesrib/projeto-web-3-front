@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import React from 'react';
+import Newthread from '../../components/dialogs/newthread';
 const existentBoards = [
   "hw",
   "elt",
@@ -192,7 +193,7 @@ export default function BoardPage ({ params }: { params: { boardid: string } }) 
       <div className="flex flex-wrap justify-top align-center justify-center">
         <div className="flex w-full wrap justify-left gap-2">
           <Button>recarregar</Button>
-          <Button>criar thread</Button>
+          <Newthread Trigger={""} />
         </div>
         {threads.map((thread) => (
           <Link href={boardid+"/"+thread.id} key={thread.id+"threadId"} className="w-[97%] sm:w-[25%] md:w-[19.6%] lg:w-[15%] xl:w-[13%] 2xl:w-[11%] flex flex-wrap m-2">
