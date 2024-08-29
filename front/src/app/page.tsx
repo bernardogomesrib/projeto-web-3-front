@@ -1,14 +1,17 @@
+'use client'
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Boards } from "@/lib/boards";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const threads = [{ thread: "Hardware", link: "/hw" },
-{ thread: "Eletrônica", link: "/elt" },
-{ thread: "Games", link: "/gms" },
-{ thread: "Programação", link: "/pg" },
-{ thread: "S.O.", link: "/so" },
-{ thread: "I.A.", link: "/ia" }]
+/* let brds:any = [{ nome: "Hardware", id: "/hw" },
+{ nome: "Eletrônica", id: "/elt" },
+{ nome: "Games", id: "/gms" },
+{ nome: "Programação", id: "/pg" },
+{ nome: "S.O.", id: "/so" },
+{ nome: "I.A.", id: "/ia" }] */
 const ultimasPubs = [
   { threadName: "Games Retro", threadLink: "/gm/123", threadText: "mario kart é over rated. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!", threadImage: "/games.png" },
   { threadName: "Venda de nodebook", threadLink: "/elt/yryry", threadText: "Vendo nodebook com 8gb de ram e 1tb de hd. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!", threadImage: "" },
@@ -23,6 +26,16 @@ const threadsPopulares = [
   { thread: "I.A.", link: "/ia", image: "/IA.png" }]
 
 export default function Home() {
+  const [boards, setBoards] = useState<any[]>([]);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await Boards();
+      setBoards(data);
+    }
+  
+    fetchData();
+  }, [])
+
   return (
     <div className="w-[99vw] flex flex-wrap gap-2 items-start justify-center">
 
@@ -33,8 +46,8 @@ export default function Home() {
 
 
         <CardContent className="w-full flex flex-wrap gap-2 justify-evenly">
-          {threads.map((thread, index) => (
-            <Link key={index + "links"} href={thread.link} className={"w-[45%] " + buttonVariants({ variant: "default" })}>{thread.thread}</Link>
+          {boards.map((thread, index) => (
+            <Link key={index + "links"} href={thread.id} className={"w-[45%] " + buttonVariants({ variant: "default" })}>{thread.nome}</Link>
           ))}
         </CardContent>
 
@@ -69,7 +82,7 @@ export default function Home() {
         {ultimasPubs.map((pub, index) => (
           <Link key={index + "utp"} className="w-full" href={pub.threadLink}>
             <Card className="w-full flex flex-wrap p-3 text-white">
-              <CardTitle className="flex justify-right w-full items-center gap-3"><Image className="rounded-[100%]" src={pub.threadImage ? pub.threadImage : "/fallbackimage.jpg"} alt="thread image" width={72} height={72} />{pub.threadName}</CardTitle>
+              <CardTitle className="flex justify-right w-full items-center gap-3"><Image className="rounded-[100%]" src={!(pub.threadImage===""|| pub.threadImage=== null|| pub.threadImage===undefined) ? pub.threadImage : "/fallbackImage.jpg"} alt="thread image" width={72} height={72} />{pub.threadName}</CardTitle>
               <CardContent className="flex justify-evenly items-center w-full">
                 <p className="truncate" title={pub.threadText}>{pub.threadText}</p>
               </CardContent>

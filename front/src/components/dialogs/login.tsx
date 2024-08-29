@@ -19,7 +19,9 @@ export function LoginDialog({ Trigger }: { Trigger: string }) {
   const [senha, setSenha] = useState('')
   const logar =async () => {
     const a = await login(email, senha);
+    localStorage.setItem('user', a.token);
     console.log(a);
+    window.location.reload();
   }
   return (
     <Dialog>

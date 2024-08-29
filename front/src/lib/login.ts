@@ -11,11 +11,10 @@ export default async function login(loging: string, password: string) {
             login: loging,
             password: password
         }),
-        mode: 'cors' 
+        mode: 'cors'
     });
 
     const data = await result.json();
-    console.log('Resposta:', data);
-
-    return result;
+       
+    return data;
 }
