@@ -1,7 +1,8 @@
 import NewUser from '@/lib/user';
 import * as Dialog from '@radix-ui/react-dialog';
-import { X } from 'lucide-react';
+import { CircleAlert, X } from 'lucide-react';
 import { useState } from 'react';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { Button } from '../ui/button';
 import { Checkbox } from '../ui/checkbox';
 import { Input } from '../ui/input';
@@ -14,18 +15,20 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
   const [password, setPassword] = useState('');
   const [date, setDate] = useState('');
   const [termos, setTermos] = useState(false);
-
-  const executarCadastro =async () => {
+  const [error, setError] = useState<null | string>(null);
+  const executarCadastro = async () => {
     console.log(fullName, email, password, date, termos);
+    let aux: string|null|undefined|any = '';
     if (termos) {
       const res = await NewUser(email, password, fullName);
       console.log(res);
-      if (res.ok){
+      if (res.ok) {
         alert('Cadastrado com sucesso');
         setClose();  // Fecha o diálogo após o cadastro
-      }else
-        alert('Erro ao cadastrar');
-      
+      } else{
+        aux = await res.json();
+        setError(aux.error)
+      }
     }
   };
 
@@ -43,12 +46,12 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
                 <div className='w-full flex items-center'><div className='w-full flex justify-center'>Nome de usuário<div className='text-[rgb(191,50,220)]'>*</div></div></div>
               </Label>
               <Label className="h-10 w-full text-center flex" htmlFor="email">
-              <div className='w-full flex items-center'><div className='w-full flex justify-center'>Email<div className='text-[rgb(191,50,220)]'>*</div></div></div>
-                
+                <div className='w-full flex items-center'><div className='w-full flex justify-center'>Email<div className='text-[rgb(191,50,220)]'>*</div></div></div>
+
               </Label>
               <Label className="h-10 w-full text-center flex" htmlFor="password">
-              <div className='w-full flex items-center'><div className='w-full flex justify-center'>Senha<div className='text-[rgb(191,50,220)]'>*</div></div></div>
-                
+                <div className='w-full flex items-center'><div className='w-full flex justify-center'>Senha<div className='text-[rgb(191,50,220)]'>*</div></div></div>
+
               </Label>
               {/* <Label className="h-10 w-full text-center flex" htmlFor="date">
                 <div className='w-full flex items-center'><div className='w-full flex justify-center'>Data de Nascimento<div className='text-[rgb(191,50,220)]'>*</div></div></div>
@@ -56,7 +59,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
               <Label className="h-10 w-full text-center flex" >
                 <div className='w-full flex items-center'><div className='w-full text-[rgb(191,50,220)]'>(*) Campo Obrigatório</div></div>
               </Label>
-              
+
             </div>
             <div id="inputs" className='w-[65%] pt-6 pl-6 gap-3 flex flex-wrap'>
               <Input className='w-full' id="nome" name='nome' placeholder="Pedro Duarte" onChange={(e) => { setFullName(e.target.value) }} />
@@ -67,8 +70,18 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
                 <Checkbox checked={termos} id="termos" onClick={() => { setTermos(!termos) }} />
                 <Label htmlFor='termos'>Aceito os termos de serviço</Label>
               </div>
+
+              {error && <div className='w-full h-10 items-center flex gap-2'>
+                <Alert className="flex justify-left" >
+                  <CircleAlert className="h-4 w-4" />
+                  <AlertTitle>Erro!</AlertTitle>
+                  <AlertDescription>
+                    {error}
+                  </AlertDescription>
+                </Alert>
+              </div>}
               <div className='w-full items-center flex justify-center pb-6'>
-                <Button className="bg-[#BF32DC]"onClick={executarCadastro}>Cadastrar</Button>
+                <Button className="bg-[#BF32DC]" onClick={executarCadastro}>Cadastrar</Button>
               </div>
             </div>
           </div>

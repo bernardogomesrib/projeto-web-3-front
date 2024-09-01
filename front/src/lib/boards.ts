@@ -1,5 +1,5 @@
 export async function Boards(){
-    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

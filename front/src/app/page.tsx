@@ -1,10 +1,11 @@
 'use client'
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Boards } from "@/lib/boards";
+import { Boards, BoardsPopulares } from "@/lib/boards";
+import { ThreadsRecentes } from "@/lib/threads";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* let brds:any = [{ nome: "Hardware", id: "/hw" },
 { nome: "Eletrônica", id: "/elt" },
@@ -12,28 +13,41 @@ import { useEffect, useState } from "react";
 { nome: "Programação", id: "/pg" },
 { nome: "S.O.", id: "/so" },
 { nome: "I.A.", id: "/ia" }] */
-const ultimasPubs = [
-  { threadName: "Games Retro", threadLink: "/gm/123", threadText: "mario kart é over rated. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!", threadImage: "/games.png" },
-  { threadName: "Venda de nodebook", threadLink: "/elt/yryry", threadText: "Vendo nodebook com 8gb de ram e 1tb de hd. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!", threadImage: "" },
-  { threadName: "Como fazer um jogo", threadLink: "/pg/123", threadText: "Como fazer um jogo em 3 passos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!", threadImage: "" },
-]
-const threadsPopulares = [
-  { thread: "Programação", link: "/pg", image: "/games.png" },
-  { thread: "S.O.", link: "/so", image: "/SO.png" },
-  { thread: "I.A.", link: "/ia", image: "/IA.png" },
-  { thread: "Programação", link: "/pg", image: "/games.png" },
-  { thread: "S.O.", link: "/so", image: "/SO.png" },
-  { thread: "I.A.", link: "/ia", image: "/IA.png" }]
+// const ultimasPubs = [
+//   { titulo: "Games Retro", threadLink: "/gm/123", mensagem: "mario kart é over rated. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!", threadImage: "/games.png" },
+//   { titulo: "Venda de nodebook", threadLink: "/elt/yryry", mensagem: "Vendo nodebook com 8gb de ram e 1tb de hd. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!", threadImage: "" },
+//   { titulo: "Como fazer um jogo", threadLink: "/pg/123", mensagem: "Como fazer um jogo em 3 passos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!", threadImage: "" },
+// ]
+// const threadsPopulares = [
+//   { nome: "Programação", id: "/pg", image: "/games.png" },
+//   { nome: "S.O.", id: "/so", image: "/SO.png" },
+//   { nome: "I.A.", id: "/ia", image: "/IA.png" },
+//   { nome: "Programação", id: "/pg", image: "/games.png" },
+//   { nome: "S.O.", id: "/so", image: "/SO.png" },
+//   { nome: "I.A.", id: "/ia", image: "/IA.png" }]
 
 export default function Home() {
   const [boards, setBoards] = useState<any[]>([]);
+  const [boardsPopulares, setBoardsPopulares] = useState<any[]>([]);
+  const [ultimasPubs, setUltimasPubs] = useState<any[]>([]);
+  const usouUmavez = useRef(false);
+
   useEffect(() => {
     async function fetchData() {
       const data = await Boards();
+      console.log(data)
       setBoards(data);
+      const data2 = await BoardsPopulares();
+      setBoardsPopulares(data2);
+      const data3 = await ThreadsRecentes();
+      console.log(data3);
+      setUltimasPubs(data3);
+      usouUmavez.current = true;
     }
-  
-    fetchData();
+    if (!usouUmavez.current) {
+      fetchData();
+    }
+
   }, [])
 
   return (
@@ -52,12 +66,12 @@ export default function Home() {
         </CardContent>
 
         <CardFooter className="flex flex-wrap gap-3 w-full editavel">
-          <h1 className="text-4xl font-bold w-full ">Threads populares</h1>
+          <h1 className="text-4xl font-bold w-full ">Boards populares</h1>
 
-          {threadsPopulares.map((thread, index) => (
+          {boardsPopulares.map((thread, index) => (
             <div key={index + "tp"} className="w-full md:w-[23%] flex flex-wrap items-center">
-              <Link className={"w-full " + buttonVariants({ variant: "default" })} href={thread.link}>
-                {thread.thread}
+              <Link className={"w-full " + buttonVariants({ variant: "default" })} href={thread.id}>
+                {thread.nome}
               </Link>
               <div className="w-full relative pb-[100%]">
                 <Image
@@ -80,16 +94,25 @@ export default function Home() {
       <Card className="w-full md:w-[35vw] flex flex-wrap p-6 text-white">
         <h2 className="font-bold w-full md:w-[35vw] ">Últimas publicações</h2>
         {ultimasPubs.map((pub, index) => (
-          <Link key={index + "utp"} className="w-full" href={pub.threadLink}>
+          <Link key={index + "utp"} className="w-full" href={pub.boardid + "/" + pub.id}>
             <Card className="w-full flex flex-wrap p-3 text-white">
-              <CardTitle className="flex justify-right w-full items-center gap-3"><Image className="rounded-[100%]" src={!(pub.threadImage===""|| pub.threadImage=== null|| pub.threadImage===undefined) ? pub.threadImage : "/fallbackImage.jpg"} alt="thread image" width={72} height={72} />{pub.threadName}</CardTitle>
+              <CardTitle className="flex justify-right w-full items-center gap-3">
+                <Image
+                  className="rounded-full aspect-square object-cover"
+                  src={!(pub.arquivo === "" || pub.arquivo === null || pub.arquivo === undefined) ? pub.arquivo : "/fallbackImage.jpg"}
+                  alt="thread image"
+                  width={72}
+                  height={72}
+                />
+                {pub.titulo}
+              </CardTitle>
               <CardContent className="flex justify-evenly items-center w-full">
-                <p className="truncate" title={pub.threadText}>{pub.threadText}</p>
+                <p className="truncate" title={pub.mensagem}>{pub.mensagem}</p>
               </CardContent>
-
             </Card>
           </Link>
         ))}
+
       </Card>
 
 

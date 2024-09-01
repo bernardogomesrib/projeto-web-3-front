@@ -9,19 +9,35 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import login from "@/lib/login"
+import { CircleAlert } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert"
 import Cadastrese from "./cadastrese"
 
 export function LoginDialog({ Trigger }: { Trigger: string }) {
   const [verCadastrese, setVerCadastrese] = useState(false)
-  const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [error,setError] = useState<string|null>(null);
+
+  const handleKeyDown = (e:any) => {
+    if (e.key === 'Enter') {
+      logar();
+    }
+  };
+
+
   const logar =async () => {
     const a = await login(email, senha);
     localStorage.setItem('user', a.token);
     console.log(a);
-    window.location.reload();
+    if(a.error){
+      setError(a.error);
+    }else{
+      window.location.reload();
+    }
+    
   }
   return (
     <Dialog>
@@ -43,6 +59,7 @@ export function LoginDialog({ Trigger }: { Trigger: string }) {
               className="col-span-3 "
               placeholder="Digite seu nome de usuário ou e-mail"
               onChange={(e) => { setEmail(e.target.value) }}
+              onKeyDown={handleKeyDown}
             />
           </div>
           <div className="grid gap-2">
@@ -54,7 +71,8 @@ export function LoginDialog({ Trigger }: { Trigger: string }) {
               type="password"
               className="col-span-3 "
               placeholder="Digite sua senha"
-              onChange={(e) => { setSenha(e.target.value) }}
+              onChange={(e) => { setSenha(e.target.value)}}
+              onKeyDown={handleKeyDown}
             />
           </div>
           <div>
@@ -68,6 +86,16 @@ export function LoginDialog({ Trigger }: { Trigger: string }) {
               }}>Esqueceu a senha?</Link>
           </div>
           <div className="text-center mt-4">
+            {error? (
+              <Alert className="flex justify-left" >
+                <CircleAlert className="h-4 w-4" />
+              <AlertTitle>Erro!</AlertTitle>
+                <AlertDescription>
+                  {error}
+                </AlertDescription>
+              </Alert>
+            ):(null)}
+            <br />
             <Button onClick={logar} className="bg-[#BF32DC] px-10 text-sm" type="submit" style={{
               textShadow: `
                   -1px -1px 0 #000,

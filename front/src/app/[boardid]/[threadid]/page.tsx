@@ -1,6 +1,6 @@
 'use client'
 import { notFound, redirect } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 
 const boardsExistentes = [
   "hw",
@@ -18,15 +18,27 @@ const threadsExistentes = [
   "so",
   "ia"
 ]
+const respostas = [
+  {
+    
+  }
+]
 export default function ThreadPage({ params }: { params: { boardid: string,threadid:string } }) {
   const boardid = params.boardid;
   const threadid = params.threadid;
-  
+  const thread = useState<any|null>();
+  const answers = useState<any[]>([]);
   const usouUmavez = React.useRef(false);
+
   React.useEffect(() => {
+    async function requests() {
+      
+    }
     if (!usouUmavez.current) {
       console.log("Board ID: ", boardid);
       console.log("Thread ID: ", threadid);
+
+
       usouUmavez.current = true;
     }
   });
