@@ -1,18 +1,44 @@
-import { Button } from "@/components/ui/button"
+"use client";
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
     DialogTrigger
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 // import Link from "next/link"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { sendNewThread } from "@/lib/threads";
+import jwt from 'jsonwebtoken';
+import { useState } from "react";
 
 
 export default function NewThread({ Trigger }: { Trigger: string }) {
+    let aux = "" as string | null;
+    try {
+        aux = localStorage.getItem('user');
+    }
+    catch (e) {
+        console.log("para de dar erro demonio");
+    }
+
+    const logic = (aux) ? (aux) : ('unkonwn')
+    const [user, setUser] = useState<any>(jwt.decode(logic));
+
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const local = window.location.href.split('/')[3];
+        console.log({formData: formData, local: local, user: user});
+        const answer = await sendNewThread(formData, local);
+        console.log(answer);
+    };
+    
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -30,12 +56,12 @@ export default function NewThread({ Trigger }: { Trigger: string }) {
                             <AvatarFallback>user</AvatarFallback>
                         </Avatar>
                     </div>
-                    <div className="pt-1"><strong>User</strong></div>
+                    <div className="pt-1"><strong>{user?.nome !== undefined ? user.nome : 'Anonimo'}</strong></div>
                 </div>
-                <div className="grid gap-4 py-4">
+                <form onSubmit={handleSubmit} className="grid gap-4 py-4">
                     <div className="grid gap-2">
                         <Input
-                            id="name"
+                            name="titulo"
                             className="col-span-3"
                             placeholder="Sobre o que vamos falar hoje?"
                         />
@@ -44,32 +70,30 @@ export default function NewThread({ Trigger }: { Trigger: string }) {
                         <Input
                             type="file"
                             id="file-upload"
-                            style={{ width: '32%' }} 
+                            name="image"
+                            style={{ width: '32%' }}
                         />
                     </div>
                     <div className="grid gap-2">
                         <Textarea
-                            id="description"
+                            name="mensagem"
                             rows={7}
                             className="col-span-3 h-50"
                             placeholder="Comentário..."
-                            style={{
-                                resize: "none"
-                            }}
+                            style={{ resize: "none" }}
                         ></Textarea>
-                    </div>
-                    <div>
                     </div>
                     <div className="text-center mt-4">
                         <Button className="bg-[#BF32DC] px-10 text-sm" type="submit" style={{
                             textShadow: `
-                  -1px -1px 0 #000,
-                  1px -1px 0 #000,
-                  -1px 1px 0 #000,
-                  1px 1px 0 #000`
+                            -1px -1px 0 #000,
+                            1px -1px 0 #000,
+                            -1px 1px 0 #000,
+                            1px 1px 0 #000`
                         }}>Publicar</Button>
                     </div>
-                </div>
+                </form>
+
             </DialogContent>
         </Dialog>
     )
