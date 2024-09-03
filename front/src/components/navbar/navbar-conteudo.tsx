@@ -32,25 +32,25 @@ const callsToAction = [
   { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
   { name: 'Contact sales', href: '#', icon: PhoneIcon },
 ]
-let NavbarUser:any = null;
-export function getUser(){
+let NavbarUser: any = null;
+export function getUser() {
   return NavbarUser;
 }
-export function Logout(){
+export function Logout() {
   localStorage.removeItem('user');
   NavbarUser = null;
   window.location.reload();
 }
-export function setUser(usr:string){
+export function setUser(usr: string) {
   NavbarUser = jwt_decode(usr);
   window.location.reload();
 }
-export default function NavbarConteudo({coisas}:{coisas:any[]}) {
+export default function NavbarConteudo({ coisas }: { coisas: any[] }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openCadastrese, setOpenCadastrese] = useState(false)
   const [user, setUser] = useState<any | null>(null);
   useEffect(() => {
-    
+
     // transformando a string que é um jwt do localstorage em um objeto
     const user = localStorage.getItem('user');
     if (user) {
@@ -59,15 +59,18 @@ export default function NavbarConteudo({coisas}:{coisas:any[]}) {
       NavbarUser = userObj;
     }
   }, [])
-  
+
   return (
     <header className="bg-transparent w-[99vw]">
       <nav aria-label="Global" className="mx-auto flex items-center justify-between p-6  ">
         <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5">
+
+          <Link href="/" className="-m-1.5 p-1.5 flex items-center">
             <span className="sr-only">Your Company</span>
+            <img src="/logo.png" alt="LogoITThreads" className="h-12 w-12 mr-3" />
             <h1 className="text-4xl font-bold">ITThreads</h1>
           </Link>
+
         </div>
         <div className="flex lg:hidden">
           <button
@@ -81,15 +84,15 @@ export default function NavbarConteudo({coisas}:{coisas:any[]}) {
         </div>
         {user ? (<div className="hidden lg:flex lg:flex-1 lg:justify-end gap-3">
           <div className={"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"}>{user.nome}</div>
-          <Button onClick={()=>{localStorage.removeItem('user'); window.location.reload();}}>Sair</Button>
-        </div>):(
+          <Button onClick={() => { localStorage.removeItem('user'); window.location.reload(); }}>Sair</Button>
+        </div>) : (
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-3">
-          {openCadastrese ? (<Cadastrese setClose={() => setOpenCadastrese(!openCadastrese)} />):(null)}
-          <Button onClick={()=>{setOpenCadastrese(true)}}>Cadastre-se</Button>
+            {openCadastrese ? (<Cadastrese setClose={() => setOpenCadastrese(!openCadastrese)} />) : (null)}
+            <Button onClick={() => { setOpenCadastrese(true) }}>Cadastre-se</Button>
             <LoginDialog Trigger={""} />
           </div>
         )}
-        
+
       </nav>
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
         <div className="fixed inset-0 z-10" />
@@ -98,7 +101,9 @@ export default function NavbarConteudo({coisas}:{coisas:any[]}) {
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <h1 className="text-4xl font-bold">ITThreads</h1>
+              <h1 className="text-4xl font-bold">teste</h1>
             </a>
+
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
@@ -112,25 +117,25 @@ export default function NavbarConteudo({coisas}:{coisas:any[]}) {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 {/*qualquer coisa que for ser adicionada no meio da barra tem que ser aqui */}
-                
+
               </div>
-              
-              
+
+
               {user ? (
                 <div className="py-6">
                   <div>
                     {user.nome}
-                    <Button className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 w-full hover:bg-gray-50 hover:text-black bg-transparent text-left flex justify-start"onClick={()=>{localStorage.removeItem('user');window.location.reload();}}>Sair</Button>
+                    <Button className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 w-full hover:bg-gray-50 hover:text-black bg-transparent text-left flex justify-start" onClick={() => { localStorage.removeItem('user'); window.location.reload(); }}>Sair</Button>
                   </div>
-                  </div>
-                ) : (
-                  <div className="py-6">
-                <Button className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 w-full hover:bg-gray-50 hover:text-black bg-transparent text-left flex justify-start"onClick={()=>{setOpenCadastrese(!openCadastrese)}}>Cadastre-se</Button>
-                <LoginDialog Trigger={"-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 w-full hover:bg-gray-50 hover:text-black bg-transparent text-left flex justify-start "} />
                 </div>
-                )} 
-              
-              
+              ) : (
+                <div className="py-6">
+                  <Button className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 w-full hover:bg-gray-50 hover:text-black bg-transparent text-left flex justify-start" onClick={() => { setOpenCadastrese(!openCadastrese) }}>Cadastre-se</Button>
+                  <LoginDialog Trigger={"-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 w-full hover:bg-gray-50 hover:text-black bg-transparent text-left flex justify-start "} />
+                </div>
+              )}
+
+
             </div>
           </div>
         </DialogPanel>
