@@ -53,7 +53,7 @@ export default function Home() {
   return (
     <div className="w-[99vw] flex flex-wrap gap-2 items-start justify-center">
 
-      <Card className="w-[96%] md:w-[60vw] gap-3 flex flex-wrap text-white">
+      <Card className="w-[96%] md:w-[60vw] gap-3 flex flex-wrap text-[var(--font-color)]">
         <CardHeader className="text-4xl font-bold w-full">
           <h1 className="">Boards</h1>
         </CardHeader>
@@ -91,11 +91,11 @@ export default function Home() {
 
 
 
-      <Card className="w-full md:w-[35vw] flex flex-wrap p-6 text-white">
+      <Card className="w-full md:w-[35vw] flex flex-wrap p-6 text-[var(--font-color)]">
         <h2 className="font-bold w-full md:w-[35vw] ">Últimas publicações</h2>
         {ultimasPubs.map((pub, index) => (
           <Link key={index + "utp"} className="w-full" href={pub.boardid + "/" + pub.id}>
-            <Card className="w-full flex flex-wrap p-3 text-white">
+            <Card className="w-full flex flex-wrap p-3 text-[var(--font-color)]">
               <CardTitle className="flex justify-right w-full items-center gap-3">
                 <Image
                   className="rounded-full aspect-square object-cover"
