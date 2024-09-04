@@ -3,17 +3,9 @@ import { Button } from '@/components/ui/button';
 import { PegaThreadsDoBoard } from '@/lib/threads';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound, redirect } from 'next/navigation';
 import React from 'react';
 import Newthread from '../../components/dialogs/newthread';
-const existentBoards = [
-  "hw",
-  "elt",
-  "gms",
-  "pg",
-  "so",
-  "ia"
-]
+
 // const threadsExample = [
 //   {
 //     id: "1",
@@ -181,6 +173,7 @@ export default function BoardPage ({ params }: { params: { boardid: string } }) 
   const [threads,setThreads] = React.useState<any[]>([]);
   const [paginas,setPaginas] = React.useState(10);
   const [paginaAtual,setPaginaAtual] = React.useState(1);
+  const [existentBoard,setExistentBoard] = React.useState(false);
   const boardid = params.boardid;
   const usouUmavez = React.useRef(false);
   React.useEffect(() => {
@@ -188,6 +181,9 @@ export default function BoardPage ({ params }: { params: { boardid: string } }) 
       const result = await PegaThreadsDoBoard(boardid);
       console.log(result);
       setThreads(result);
+      if (result.length > 0) {
+        setExistentBoard(true);
+      }
     }
     if (!usouUmavez.current) {
       console.log("Board ID: ", boardid);
@@ -195,23 +191,27 @@ export default function BoardPage ({ params }: { params: { boardid: string } }) 
       pegaThreads();
     }
   });
-  if (existentBoards.includes(boardid)) {
+  const recarregarThreads = async () => {
+    const result = await PegaThreadsDoBoard(boardid);
+    console.log(result);
+    setThreads(result);
+  }
     return (
       <div className="flex flex-wrap justify-top align-center justify-center">
         <div className="flex w-full wrap justify-left gap-2">
-          <Button>recarregar</Button>
+          <Button onClick={recarregarThreads}>recarregar</Button>
           <Newthread Trigger={""} />
         </div>
         {threads.map((thread) => (
           <Link href={boardid+"/"+thread.id} key={thread.id+"threadId"} className="w-[97%] sm:w-[25%] md:w-[19.6%] lg:w-[15%] xl:w-[13%] 2xl:w-[11%] flex flex-wrap m-2">
-            <h1 className="w-full text-center truncate">{thread.titulo}</h1>
+            <h1 className="w-full text-center truncate" title={thread.titulo}>{thread.titulo}</h1>
             <div className="w-full flex justify-center">
-              {thread.arquivo ?(<Image width={150} height={150} src={thread.arquivo} alt={thread.titulo} />): <Image width={150} height={150} src="https://via.placeholder.com/150" alt={thread.titulo} />}
+              {thread.arquivo ?(<Image width={150} height={150} src={thread.arquivo} alt={thread.titulo} />): (null)}
             </div>
-            <p className="line-clamp-3 text-center items-center w-full h-[5em]" title={thread.mensagem}>
+            <p className="line-clamp-3 text-center items-center w-full h-[4.9em]" title={thread.mensagem}>
               {thread.mensagem}
             </p>
-            <div className='w-full flex justify-evenly'><strong>R:{thread.respostas} F:{thread.arquivos}</strong> </div>
+            <div className='w-full flex justify-evenly'><strong>C:{thread.clicks}</strong> </div>
           </Link>
         ))}
 
@@ -240,7 +240,5 @@ export default function BoardPage ({ params }: { params: { boardid: string } }) 
         </div>
       </div>
     );
-  } else {
-    redirect(notFound());
-  }
+  
 };

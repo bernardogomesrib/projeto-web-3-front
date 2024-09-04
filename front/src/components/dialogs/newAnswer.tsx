@@ -4,19 +4,18 @@ import {
     Dialog,
     DialogContent,
     DialogHeader,
-    DialogTitle,
-    DialogTrigger
+    DialogTitle
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 // import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { sendNewThread } from "@/lib/threads";
+import { newAnswer } from "@/lib/answer";
 import jwt from 'jsonwebtoken';
 import { useState } from "react";
 
 
-export default function NewThread({ Trigger }: { Trigger: string }) {
+export default function NewAnswer({ boardId,threadId,done }: { boardId: string,threadId: string,done:()=>void }) {
     let aux = "" as string | null;
     try {
         aux = localStorage.getItem('user');
@@ -32,18 +31,19 @@ export default function NewThread({ Trigger }: { Trigger: string }) {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const local = window.location.href.split('/')[3];
-        console.log({formData: formData, local: local, user: user});
-        const answer = await sendNewThread(formData, local);
+        
+        console.log({formData: formData, local: boardId+"/"+threadId, user: user});
+        const answer = await newAnswer(formData, boardId,threadId);
         console.log(answer);
+        if (answer.id) {
+            done();
+        }
     };
     
 
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button className={Trigger}>Criar thread</Button>
-            </DialogTrigger>
+        <Dialog defaultOpen={true}>
+           
             <DialogContent className="sm:max-w-[80%] max-h-[90%] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="text-center py-2">Nova thread</DialogTitle>

@@ -1,11 +1,15 @@
 'use client'
-import { Button } from '@/components/ui/button';
+import NewAnswer from '@/components/dialogs/newAnswer';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardFooter } from '@/components/ui/card';
+import { getUserName } from '@/lib/admin';
+import { Thread } from '@/lib/threads';
 import Image from 'next/image';
+import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { ResponseCard } from './responseCard';
-
+/* 
 const boardsExistentes = [
   "hw",
   "elt",
@@ -23,8 +27,8 @@ const threadsExistentes = [
   "ia",
   "1"
 ]
-
-
+ */
+/* 
 const respostasRecebidas = [{
   id: 1,
   mensagem: "mensage",
@@ -81,11 +85,11 @@ const respostasRecebidas = [{
 }
 
 
-]
+] */
 
 
 class Resposta {
-  constructor(public resp: any) {}
+  constructor(public resp: any) { }
   getCard() {
     console.log("fui chamado!");
   }
@@ -95,75 +99,155 @@ class Resposta {
 
 export default function ThreadPage({ params }: { params: { boardid: string, threadid: string } }) {
   const { boardid, threadid } = params;
-  const thread = {
-    id: 1,
-    titulo: "como lidar com isto?",
-    mensagem: "fui comprar um notebook só pra ficar em casa como servidor ou substituir o meu notebook antigo, mas daí quando perguntei sobre o notebook que estava a venda a mulher me manda uma dessas, eu achei que fosse sempre uma piadada internet, não uma realidade :(",
-    arquivo: "https://storage.googleapis.com/projetoweb3-b30a2.appspot.com/Captura de tela 2024-08-25 103112.png",
-    ip: "::ffff:179.73.195.95",
-    clicks: 1,
-    createdAt: "2024-09-01T20:13:03.000Z",
-    updatedAt: "2024-09-01T21:03:34.000Z",
-    boardId: "elt",
-    userId: null,
-  };
-
   const [respostas, setRespostas] = useState<Resposta[]>([]);
-  const [expandThreadImage, setExpandThreadImage] = useState(false);
-  const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+  const [imageExpanded, setImageExpanded] = useState(false);
+  const [thread, setThread] = useState<any>({});
+  const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 }); // Tamanho real da imagem
   const usouUmaVez = React.useRef(false);
+  const [dialogResponse, setDialogResponse] = useState(false);
+  const [addedUsers, setAddedUsers] = useState(0);
+  const [users, setUsers] = useState<Map<number, string>>(new Map<number, string>());
+  const [loading, setLoading] = useState(true); // Novo estado para controlar o carregamento
 
-  useEffect(() => {
-    if (!usouUmaVez.current) {
-      setRespostas(respostasRecebidas.map((r) => new Resposta(r)));
-      usouUmaVez.current = true;
-    }
-  }, []);
-
-  const handleImageLoad = (e: any) => {
-    setImageSize({
-      width: e.target.naturalWidth,
-      height: e.target.naturalHeight,
-    });
-  };
-
-  const handleImageClick = () => {
-    setExpandThreadImage(!expandThreadImage);
-  };
-
-  if (!boardsExistentes.includes(boardid)) {
-    return notFound();
+  async function getUsersNames(mapa: Map<number, string>): Promise<Map<number, string>> {
+    console.log("entrou no getUsersNames");
+    const newMap = new Map<number, string>(mapa); // Cria uma nova instância do Map para evitar mutações diretas
+    newMap.forEach(async (key, value) => {
+      if (key === '') {
+        const userName = await getUserName(value + '');
+        newMap.set(value, userName);
+      }
+    })
+    return newMap;
   }
 
-  if (!threadsExistentes.includes(threadid)) {
+
+
+  const addIdIfNotExists = (id: number, nome: string) => {
+    console.log("entrou no addIfNoteExists");
+    setUsers(prevMap => {
+        if (!prevMap.has(id)) {
+            console.log("encontrou um id que não existia no mapa")
+            const newMap = new Map(prevMap); // Cria uma nova instância do Map
+            newMap.set(id, nome);
+            setAddedUsers(prevAddedUsers => {
+                const newAddedUsers = prevAddedUsers + 1;
+                console.log("valor de addedUsers: ", newAddedUsers);
+                return newAddedUsers;
+            });
+            return newMap;
+        }
+        console.log("não encontrou um id que não existia no mapa")
+        return prevMap;
+    });
+};
+
+
+
+const pegaRespostas = async () => {
+  const respostas = await Thread(boardid, threadid);
+  setThread(respostas);
+  console.log(respostas);
+  if (respostas.id === undefined || respostas.id === null || respostas.id === "" || respostas.id === 0) {
     return redirect(notFound());
   }
 
+  if (respostas.userId != null) {
+    addIdIfNotExists(respostas.userId, "");
+  }
+  setRespostas(respostas.answers);
+
+  respostas.answers.forEach((r: any) => {
+    if (r.userId != null) {
+      addIdIfNotExists(r.userId, "");
+    }
+  });
+   
+  const img = new window.Image();
+  img.src = respostas.arquivo;
+  img.onload = () => {
+    setOriginalSize({
+      width: img.naturalWidth,
+      height: img.naturalHeight,
+    });
+  };
+
+  setLoading(false); // Concluiu o carregamento
+};
+
+useEffect(() => {
+  if (!usouUmaVez.current) {
+    pegaRespostas();
+    
+    usouUmaVez.current = true;
+  }
+}, []);
+
+useEffect(() => {
+  if (addedUsers > 0) {
+    getUsersNames(users).then(updatedUsers => {
+      setUsers(updatedUsers);
+      setAddedUsers(0);
+    });
+  }
+}, [addedUsers, users]);
+
+  function newAnswerSent() {
+    setDialogResponse(false);
+    pegaRespostas();
+  }
+
+  const expand = () => {
+    setImageExpanded(!imageExpanded);
+  };
   return (
     <div className="w-[99vw] flex flex-wrap gap-2 items-start justify-center">
-      <Card className="m-1 text-[var(--font-color)]">
-        <div className="pl-5">{thread.id} - {thread.userId ? thread.userId : "Anonymous"}</div>
+      <Card className="m-1 text-[var(--font-color)] w-[98%]">
+        {!loading && (
+          <div className="pl-5">
+            {thread.id} - {thread.userId ? users.get(thread.userId) ?? "Carregando nome..." : "Anonymous"}
+            <Link className={buttonVariants({ variant: "default" }) + " text-[var(--font-color)] h-5"} href={"/" + boardid}>
+              Voltar
+            </Link>
+          </div>
+        )}
+        {loading && <p>Carregando...</p>} {/* Exibe um carregando enquanto a página é carregada */}
         <h4 className="pl-6">{thread.titulo}</h4>
         <div className="flex p-6 justify-left">
-          <div className="flex-wrap flex">
-            <p className="text-xs">{imageSize.width}x{imageSize.height} <Button className="p-0 text-decoration:underline h-5 bg-transparent" onClick={handleImageClick}>{expandThreadImage ? "Diminuir imagem" : "Expandir imagem"}</Button></p>
-            {!expandThreadImage && thread.arquivo ? (
-              <Image width={150} height={150} src={thread.arquivo} alt={thread.titulo} onClick={handleImageClick} onLoad={handleImageLoad} />
-            ) : (
-              <Image width={imageSize.width} height={imageSize.height} src={thread.arquivo} alt={thread.titulo} onClick={handleImageClick} onLoad={handleImageLoad} />
-            )}
-          </div>
+          {thread.arquivo && (
+            <div className="flex flex-col items-center">
+              <p className="text-xs flex flex-row items-center">
+                {originalSize.width}x{originalSize.height} {/* Mostra o tamanho original */}
+                <Button className="p-0 text-decoration:underline h-5 bg-transparent" onClick={expand}>
+                  {imageExpanded ? "Diminuir imagem" : "Expandir imagem"}
+                </Button>
+              </p>
+              
+              <Image
+                width={imageExpanded ? originalSize.width : 150}
+                height={imageExpanded ? originalSize.height : 150}
+                src={thread.arquivo}
+                alt={thread.mensagem}
+                onClick={expand}
+                unoptimized={imageExpanded} // Desativa otimização quando expandido
+              />
+            </div>
+          )}
           <p className="p-6">{thread.mensagem}</p>
         </div>
         <CardFooter className='flex flex-wrap'>
-        <Button className="fixed right-0 top-1/2 transform -translate-y-1/2 ">
-          Responder thread
-        </Button>
+          <Button className="fixed right-0 top-1/2 transform -translate-y-1/2" onClick={() => { setDialogResponse(!dialogResponse) }}>
+            Responder thread
+          </Button>
           {respostas.map((r, index) => (
-            <ResponseCard key={index} id={`${index}cardid`} index={index} resp={r.resp} />
+            <ResponseCard key={index} id={`${index}cardid`} index={index} resp={r} users={users} />
           ))}
         </CardFooter>
+        <div className='pl-6 pb-6'>
+          <Button onClick={pegaRespostas}>Atualizar respostas</Button>
+        </div>
       </Card>
+      {dialogResponse && (<NewAnswer boardId={boardid} threadId={threadid} done={newAnswerSent} />)}
     </div>
   );
 }

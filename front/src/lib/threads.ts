@@ -13,6 +13,7 @@ export async function PegaUltimasPublicacoes() {
     const data = await result.json();
     return data;
 }
+
 export async function PegaThreadsDoBoard(board: string) {
     try {
         const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/${board}/threads`, {
@@ -29,6 +30,7 @@ export async function PegaThreadsDoBoard(board: string) {
         return [{ id: 69, titulo: "Deu erro ao buscar os threads", mensagem: err.message, arquivo: '/errorImage.png' }]
     }
 }
+
 export async function ThreadsRecentes() {
     const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/threads/recent`, {
         method: 'GET',
@@ -43,9 +45,9 @@ export async function ThreadsRecentes() {
 }
 
 // esta função é para pegar a thread e as respostas ou apenas a thread, depende se deus quizer é os 2.
-export async function Thread(id: string) {
-    // TODO: é pra fazer a requizição de respostas também, ou criar uma rota na api que devolve o id e as respostas de um thread
-    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/threads/${id}`, {
+export async function Thread(boardId:string,threadId: string) {
+   
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/${boardId}/threads/${threadId}/content`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/json",
@@ -54,7 +56,7 @@ export async function Thread(id: string) {
         mode: 'cors'
     });
     const data = await result.json();
-    const result2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/`)
+   
     return data;
 
 }
@@ -91,7 +93,3 @@ export async function sendNewThread(formdata: FormData, board: string) {
         return data;
   
 }
-
-
-
-//o nome do avião que jogou "little boy" no japão durante a segunda guerra mundial me quebra todo kkkkkkkkk

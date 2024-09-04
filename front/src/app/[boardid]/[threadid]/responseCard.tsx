@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-export function ResponseCard({ resp, index, id }: { resp: any, index: number, id: string }) {
+export function ResponseCard({ resp, index, id,users }: { resp: any, index: number, id: string, users:Map<number,string> }) {
   const [imageExpanded, setImageExpanded] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 150, height: 150 }); // Tamanho inicial pequeno
   const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 }); // Tamanho real da imagem
@@ -28,7 +28,7 @@ export function ResponseCard({ resp, index, id }: { resp: any, index: number, id
   return (
     <div className='w-full' id={id}>
       <Card key={index} className='text-[var(--font-color)]'>
-        <div className="pl-3">{resp.id}</div>
+      <div className="pl-5">{resp.id} - {resp.userId ? users.get(resp.userId) : "Anonymous"}</div>
         <div className="flex p-6 justify-left">
           {resp.arquivo && (
             <div className="flex flex-col items-center">

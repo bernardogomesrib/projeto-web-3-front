@@ -1,5 +1,5 @@
 'use client'
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Boards, BoardsPopulares } from "@/lib/boards";
 import { ThreadsRecentes } from "@/lib/threads";
@@ -69,10 +69,10 @@ export default function Home() {
           <h1 className="text-4xl font-bold w-full ">Boards populares</h1>
 
           {boardsPopulares.map((thread, index) => (
-            <div key={index + "tp"} className="w-full md:w-[23%] flex flex-wrap items-center">
-              <Link className={"w-full " + buttonVariants({ variant: "default" })} href={thread.id}>
+            <Link href={thread.id} key={index + "tp"} className="w-full md:w-[23%] flex flex-wrap items-center">
+              <Button className={"w-full " + buttonVariants({ variant: "default" })} >
                 {thread.nome}
-              </Link>
+              </Button>
               <div className="w-full relative pb-[100%]">
                 <Image
                   src={thread.image}
@@ -81,7 +81,7 @@ export default function Home() {
                   style={{ objectFit: "cover" }}
                 />
               </div>
-            </div>
+            </Link>
           ))}
         </CardFooter>
 
@@ -93,8 +93,8 @@ export default function Home() {
 
       <Card className="w-full md:w-[35vw] flex flex-wrap p-6 text-[var(--font-color)]">
         <h2 className="font-bold w-full md:w-[35vw] ">Últimas publicações</h2>
-        {ultimasPubs.map((pub, index) => (
-          <Link key={index + "utp"} className="w-full" href={pub.boardid + "/" + pub.id}>
+        {ultimasPubs.length>0 ?(ultimasPubs.map((pub, index) => (
+          <Link key={index + "utp"} className="w-full" href={pub.boardId + "/" + pub.id}>
             <Card className="w-full flex flex-wrap p-3 text-[var(--font-color)]">
               <CardTitle className="flex justify-right w-full items-center gap-3">
                 <Image
@@ -111,7 +111,7 @@ export default function Home() {
               </CardContent>
             </Card>
           </Link>
-        ))}
+        ))):(null)}
 
       </Card>
 
