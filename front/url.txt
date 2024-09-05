@@ -1,0 +1,36 @@
+
+https://5313-179-73-195-95.ngrok-free.app
+
+
+
+
+ ✓ Compiled /api/[...requests] in 2.5s (533 modules)
+ ⨯ TypeError: Cannot destructure property 'request' of 'req.query' as it is undefined.
+    at GET (webpack-internal:///(rsc)/./src/app/api/[...requests]/route.ts:13:13)
+    at /gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:55044
+    at /gitgud/projeto-web-3-front/front/node_modules/next/dist/server/lib/trace/tracer.js:140:36
+    at NoopContextManager.with (/gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (/gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at /gitgud/projeto-web-3-front/front/node_modules/next/dist/server/lib/trace/tracer.js:122:103
+    at NoopContextManager.with (/gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NextTracerImpl.trace (/gitgud/projeto-web-3-front/front/node_modules/next/dist/server/lib/trace/tracer.js:122:28)
+    at /gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:47853
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at Object.wrap (/gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:40244)
+    at /gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46429
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at Object.wrap (/gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:37583)
+    at /gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46391
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at ek.execute (/gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:45838)
+    at ek.handle (/gitgud/projeto-web-3-front/front/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:56303)
+    at doRender (/gitgud/projeto-web-3-front/front/node_modules/next/dist/server/base-server.js:1377:60)
+    at cacheEntry.responseCache.get.routeKind (/gitgud/projeto-web-3-front/front/node_modules/next/dist/server/base-server.js:1587:46)
+    at ResponseCache.get (/gitgud/projeto-web-3-front/front/node_modules/next/dist/server/response-cache/index.js:49:26)
+    at DevServer.renderToResponseWithComponentsImpl (/gitgud/projeto-web-3-front/front/node_modules/next/dist/server/base-server.js:1507:53)
+ GET /api/api-docs 500 in 3662ms
+
+

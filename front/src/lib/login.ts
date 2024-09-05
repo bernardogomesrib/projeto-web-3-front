@@ -1,7 +1,8 @@
+'use server'
 export default async function login(loging: string, password: string) {
     console.log(loging, password);
     
-    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

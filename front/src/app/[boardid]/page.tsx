@@ -196,6 +196,7 @@ export default function BoardPage ({ params }: { params: { boardid: string } }) 
     console.log(result);
     setThreads(result);
   }
+    console.log(threads)
     return (
       <div className="flex flex-wrap justify-top align-center justify-center">
         <div className="flex w-full wrap justify-left gap-2">
@@ -215,6 +216,7 @@ export default function BoardPage ({ params }: { params: { boardid: string } }) 
           </Link>
         ))}
 
+        {/* quando existir de fato uma paginação talvez descomentar isto
         <div className="flex w-full gap-2 justify-center">
           <Button onClick={()=>{setPaginaAtual(1)}}>{'<<'}</Button>
           <Button onClick={()=>{setPaginaAtual(paginaAtual-1)}}>{'<'}</Button>
@@ -237,7 +239,7 @@ export default function BoardPage ({ params }: { params: { boardid: string } }) 
           })}
           <Button onClick={()=>{setPaginaAtual(paginaAtual+1)}}>{'>'}</Button>
           <Button onClick={()=>{setPaginaAtual(paginas)}}>{'>>'}</Button>
-        </div>
+        </div> */}
       </div>
     );
   

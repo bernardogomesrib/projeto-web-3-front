@@ -1,5 +1,6 @@
+'use server'
 export async function Boards(){
-    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}boards/`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -12,7 +13,7 @@ export async function Boards(){
     return data;
 }
 export async function BoardsPopulares(){
-    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/popular`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}boards/popular`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

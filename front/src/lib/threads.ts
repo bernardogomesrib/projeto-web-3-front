@@ -1,7 +1,7 @@
 'use client';
 
 export async function PegaUltimasPublicacoes() {
-    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/threads/recent`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}threads/recent`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -16,7 +16,7 @@ export async function PegaUltimasPublicacoes() {
 
 export async function PegaThreadsDoBoard(board: string) {
     try {
-        const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/${board}/threads`, {
+        const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${board}/threads`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -25,6 +25,8 @@ export async function PegaThreadsDoBoard(board: string) {
             mode: 'cors'
         })
         const data = await result.json();
+        if(data.error)
+            return [{ id: 69, titulo: "Deu erro ao buscar os threads", mensagem: data.error.name, arquivo: '/errorImage.png' }]
         return data;
     } catch (err: any) {
         return [{ id: 69, titulo: "Deu erro ao buscar os threads", mensagem: err.message, arquivo: '/errorImage.png' }]
@@ -32,7 +34,7 @@ export async function PegaThreadsDoBoard(board: string) {
 }
 
 export async function ThreadsRecentes() {
-    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/threads/recent`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}threads/recent`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/json",
@@ -47,7 +49,7 @@ export async function ThreadsRecentes() {
 // esta função é para pegar a thread e as respostas ou apenas a thread, depende se deus quizer é os 2.
 export async function Thread(boardId:string,threadId: string) {
    
-    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/${boardId}/threads/${threadId}/content`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${boardId}/${threadId}/content`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/json",
@@ -68,7 +70,7 @@ export async function sendNewThread(formdata: FormData, board: string) {
     const aux = localStorage.getItem('user');
     const logic = aux ? '' : '/anonymous';
     const logic2 = aux ? 'BEARER ' + aux : '';
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/${board}/threads${logic}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}${board}/threads${logic}`;
 
     console.log(url);
 

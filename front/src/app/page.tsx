@@ -7,24 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-/* let brds:any = [{ nome: "Hardware", id: "/hw" },
-{ nome: "Eletrônica", id: "/elt" },
-{ nome: "Games", id: "/gms" },
-{ nome: "Programação", id: "/pg" },
-{ nome: "S.O.", id: "/so" },
-{ nome: "I.A.", id: "/ia" }] */
-// const ultimasPubs = [
-//   { titulo: "Games Retro", threadLink: "/gm/123", mensagem: "mario kart é over rated. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!", threadImage: "/games.png" },
-//   { titulo: "Venda de nodebook", threadLink: "/elt/yryry", mensagem: "Vendo nodebook com 8gb de ram e 1tb de hd. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!", threadImage: "" },
-//   { titulo: "Como fazer um jogo", threadLink: "/pg/123", mensagem: "Como fazer um jogo em 3 passos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reprehenderit ex nobis obcaecati doloribus atque quis, deleniti quasi blanditiis repellendus minima quaerat dolorem architecto facilis harum aperiam veniam sed molestias!", threadImage: "" },
-// ]
-// const threadsPopulares = [
-//   { nome: "Programação", id: "/pg", image: "/games.png" },
-//   { nome: "S.O.", id: "/so", image: "/SO.png" },
-//   { nome: "I.A.", id: "/ia", image: "/IA.png" },
-//   { nome: "Programação", id: "/pg", image: "/games.png" },
-//   { nome: "S.O.", id: "/so", image: "/SO.png" },
-//   { nome: "I.A.", id: "/ia", image: "/IA.png" }]
+
 
 export default function Home() {
   const [boards, setBoards] = useState<any[]>([]);
@@ -74,12 +57,12 @@ export default function Home() {
                 {thread.nome}
               </Button>
               <div className="w-full relative pb-[100%]">
-                <Image
+               {thread.image&& <Image
                   src={thread.image}
                   alt="icone"
                   fill
                   style={{ objectFit: "cover" }}
-                />
+                />}
               </div>
             </Link>
           ))}

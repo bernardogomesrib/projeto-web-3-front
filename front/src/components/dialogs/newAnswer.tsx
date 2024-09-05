@@ -33,7 +33,7 @@ export default function NewAnswer({ boardId,threadId,done }: { boardId: string,t
         const formData = new FormData(e.currentTarget);
         
         console.log({formData: formData, local: boardId+"/"+threadId, user: user});
-        const answer = await newAnswer(formData, boardId,threadId);
+        const answer = await newAnswer(formData, boardId,threadId,aux);
         console.log(answer);
         if (answer.id) {
             done();
