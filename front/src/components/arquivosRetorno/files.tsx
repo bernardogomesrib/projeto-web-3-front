@@ -8,6 +8,7 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
     const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 });
     const [test, setTest] = useState<string | undefined>(undefined);
     const [extension,setExtension] = useState<string | undefined>(undefined);
+    const validTest = ['image', 'video', 'pdf'];
     const expand = () => {
         setImageExpanded(!imageExpanded);
     }
@@ -71,8 +72,8 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
 
         } else if(test==='pdf'){
             setOriginalSize({
-                width: 500,
-                height: 500,
+                width: Math.round(window.innerWidth * 0.8),
+                height: Math.round(window.innerHeight * 0.8),
             });
         }
         else {
@@ -81,13 +82,14 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
     }, [test]);
     return (
   <div className="flex flex-col items-center">
-    <p className="text-xs flex flex-row items-center">
-      {originalSize.width}x{originalSize.height}
-      <Button className="p-0 text-decoration:underline h-5 bg-transparent" onClick={expand}>
+    {test&&<p className="text-xs flex flex-row items-center">
+      {(validTest.includes(test))?(`${originalSize.width}x${originalSize.height}  `):(null)} - 
+       <Button className="pt-0 pb-0 pl-2 pr-2 text-decoration:underline h-5 bg:gray-500" onClick={expand}>
         {test === "video" && (imageExpanded ? "Diminuir video" : "Expandir video")}
         {test === "image" && (imageExpanded ? "Diminuir imagem" : "Expandir imagem")}
+        {test === "pdf" &&(imageExpanded ? "Diminuir pdf":"Expandir pdf")}
       </Button>
-    </p>
+    </p>}
 
     {test === "video" ? (
       <video
@@ -115,7 +117,7 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
         onClick={!imageExpanded?expand:undefined}
         type="application/pdf" />
     ):(
-      <h1>Eh nada</h1>)
+      null)
     }
   </div>
 );

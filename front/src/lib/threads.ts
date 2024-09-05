@@ -66,7 +66,7 @@ export async function Thread(boardId:string,threadId: string) {
 // função para criar thread caso anonima ou caso identificada
 
 export async function sendNewThread(formdata: FormData, board: string) {
-    'use client';
+
     const aux = localStorage.getItem('user');
     const logic = aux ? '' : '/anonymous';
     const logic2 = aux ? 'BEARER ' + aux : '';

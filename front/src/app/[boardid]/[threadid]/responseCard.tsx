@@ -27,7 +27,11 @@ export function ResponseCard({ resp, index, id }: { resp: any, index: number, id
   return (
     <div className='w-full' id={id}>
       <Card key={index} className='text-[var(--font-color)]'>
-      <div className="pl-5">{resp.id} - {resp.userId ?resp.userName : "Anonymous"}</div>
+      <div className="pl-5">{resp.id} - {resp.userId ?resp.userName : "Anonymous"} { new Intl.DateTimeFormat('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+            }).format(new Date(resp.createdAt))}</div>
         <div className="flex p-6 justify-left">
           {resp.arquivo && (
             <BoardImage url={resp.arquivo} alt={resp.mensagem}/>

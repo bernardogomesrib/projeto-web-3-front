@@ -22,11 +22,11 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
     if (termos) {
       const res = await NewUser(email, password, fullName);
       console.log(res);
-      if (res.ok) {
+      if (res.token) {
         alert('Cadastrado com sucesso');
         setClose();  // Fecha o diálogo após o cadastro
       } else{
-        aux = await res.json();
+        
         setError(aux.error)
       }
     }

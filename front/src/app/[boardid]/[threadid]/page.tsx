@@ -99,9 +99,7 @@ class Resposta {
 export default function ThreadPage({ params }: { params: { boardid: string, threadid: string } }) {
   const { boardid, threadid } = params;
   const [respostas, setRespostas] = useState<Resposta[]>([]);
-  const [imageExpanded, setImageExpanded] = useState(false);
   const [thread, setThread] = useState<any>({});
-  const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 }); // Tamanho real da imagem
   const usouUmaVez = React.useRef(false);
   const [dialogResponse, setDialogResponse] = useState(false);
   const [loading, setLoading] = useState(true); // Novo estado para controlar o carregamento
@@ -116,30 +114,26 @@ export default function ThreadPage({ params }: { params: { boardid: string, thre
   }, []); // Array vazio para garantir que seja executado uma vez
   
   const pegaRespostas = async () => {
-    const respostas = await Thread(boardid, threadid);
-  
+    const r = await Thread(boardid, threadid);
+    console.log(r);
     // Apenas atualize os estados se os dados forem diferentes
-    if (respostas.id && respostas.id !== thread.id) {
-      setThread(respostas);
-      setRespostas(respostas.answers);
-      
-      const img = new window.Image();
-      img.src = respostas.arquivo;
-      img.onload = () => {
-        setOriginalSize({
-          width: img.naturalWidth,
-          height: img.naturalHeight,
-        });
-      };
-  
+    if (r.id && r.id !== thread.id && r.answers.length != thread.answers?.length) {
+      setThread(r);
+      setRespostas(r.answers);
+      console.log("era pra ter atualizado.")
       setLoading(false); // Concluiu o carregamento
     }
   };
   
+  const atualizaRespostas = async()=>{
+    const resposta = await Thread(boardid, threadid);
+    setRespostas(resposta.answers);
+
+  }
 
   function newAnswerSent() {
     setDialogResponse(false);
-    pegaRespostas();
+    atualizaRespostas();
   }
 
 
@@ -148,7 +142,11 @@ export default function ThreadPage({ params }: { params: { boardid: string, thre
       <Card className="m-1 text-[var(--font-color)] w-[98%]">
         {!loading && (
           <div className="pl-5">
-            {thread.id} - {thread.userId ? thread.userName : "Anonymous"}
+            {thread.id} - {thread.userId ? thread.userName : "Anonymous"} - { new Intl.DateTimeFormat('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+            }).format(new Date(thread.createdAt))}
             <Link className={buttonVariants({ variant: "default" }) + " text-[var(--font-color)] h-5"} href={"/" + boardid}>
               Voltar
             </Link>
@@ -171,7 +169,7 @@ export default function ThreadPage({ params }: { params: { boardid: string, thre
           ))}
         </CardFooter>
         <div className='pl-6 pb-6'>
-          <Button onClick={pegaRespostas}>Atualizar respostas</Button>
+          <Button onClick={atualizaRespostas}>Atualizar respostas</Button>
         </div>
       </Card>
       {dialogResponse && (<NewAnswer boardId={boardid} threadId={threadid} done={newAnswerSent} />)}
