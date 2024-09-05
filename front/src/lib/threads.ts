@@ -1,4 +1,4 @@
-'use client';
+'use server';
 
 export async function PegaUltimasPublicacoes() {
     const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}threads/recent`, {
