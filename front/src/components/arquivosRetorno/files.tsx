@@ -72,7 +72,7 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
 
         } else if(test==='pdf'){
             setOriginalSize({
-                width: Math.round(window.innerWidth * 0.8),
+                width: Math.round(window.innerWidth * 0.7),
                 height: Math.round(window.innerHeight * 0.8),
             });
         }
@@ -95,7 +95,7 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
       <video
         width={imageExpanded ? originalSize.width : 150}
         height={imageExpanded ? originalSize.height : 150}
-        controls
+        controls={imageExpanded}
         onClick={!imageExpanded?expand:undefined}
       >
         <source src={url} type={"video/"+extension} />

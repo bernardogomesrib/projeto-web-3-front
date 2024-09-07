@@ -154,7 +154,7 @@ export default function ThreadPage({ params }: { params: { boardid: string, thre
         )}
         {loading && <p>Carregando...</p>} {/* Exibe um carregando enquanto a página é carregada */}
         <h4 className="pl-6">{thread.titulo}</h4>
-        <div className="flex p-6 justify-left">
+        <div id="" className="flex p-6 justify-left flex-wrap">
           {thread.arquivo && (
             <BoardImage url={thread.arquivo as string} alt={thread.titulo}/>
           )}

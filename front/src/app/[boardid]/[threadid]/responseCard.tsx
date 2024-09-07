@@ -32,7 +32,7 @@ export function ResponseCard({ resp, index, id }: { resp: any, index: number, id
             month: '2-digit',
             year: 'numeric'
             }).format(new Date(resp.createdAt))}</div>
-        <div className="flex p-6 justify-left">
+        <div className="flex p-6 justify-left flex-wrap">
           {resp.arquivo && (
             <BoardImage url={resp.arquivo} alt={resp.mensagem}/>
           )}
