@@ -1,5 +1,6 @@
 'use client';
 import BoardImage from '@/components/arquivosRetorno/files';
+import { FormatText } from '@/components/textAgent/textAgent';
 import { Card } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 
@@ -27,7 +28,7 @@ export function ResponseCard({ resp, index, id }: { resp: any, index: number, id
   return (
     <div className='w-full' id={id}>
       <Card key={index} className='text-[var(--font-color)]'>
-      <div className="pl-5">{resp.id} - {resp.userId ?resp.userName : "Anonymous"} { new Intl.DateTimeFormat('pt-BR', {
+      <div className="pl-5 pr-5">{resp.id} - {resp.userId ?resp.userName : "Anonymous"} { new Intl.DateTimeFormat('pt-BR', {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric'
@@ -36,7 +37,7 @@ export function ResponseCard({ resp, index, id }: { resp: any, index: number, id
           {resp.arquivo && (
             <BoardImage url={resp.arquivo} alt={resp.mensagem}/>
           )}
-          <p className="p-6">{resp.mensagem}</p>
+          <div className="p-6">{FormatText(resp.mensagem)}</div>
         </div>
       </Card>
     </div>

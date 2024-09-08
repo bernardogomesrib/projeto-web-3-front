@@ -12,7 +12,7 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
     const expand = () => {
         setImageExpanded(!imageExpanded);
     }
-    console.log("o arquivo files recebeu:", url);
+    
     useEffect(() => {
         function getFileType(url: string) {
             const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.tiff'];
@@ -25,7 +25,7 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
             imageExtensions.forEach((ext) => {
 
                 if (url.includes(ext)) {
-                    console.log("é imagem: ", ext);
+    
                     teste = 'image';
 
                 }
@@ -47,7 +47,7 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
     }, []);
     useEffect(() => {
         if (test === 'image') {
-            console.log("entrou como imagem");
+            
             const img = new window.Image();
             img.src = url;
             img.onload = () => {
@@ -59,7 +59,7 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
         } else if (test === "video") {
             const video = document.createElement('video');
             video.src = url;
-            console.log("é video: ", url)
+            
             video.addEventListener('loadedmetadata', () => {
                 setOriginalSize({
                     width: video.videoWidth,
@@ -97,6 +97,7 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
         height={imageExpanded ? originalSize.height : 150}
         controls={imageExpanded}
         onClick={!imageExpanded?expand:undefined}
+        preload="none"
       >
         <source src={url} type={"video/"+extension} />
         Seu navegador não suporta o vídeo.
