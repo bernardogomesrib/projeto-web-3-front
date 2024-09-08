@@ -6,6 +6,7 @@ export const FormatText = (text: string) => {
     if (!text) {
         return <div></div>;
     }
+    
     return text.split(/\r?\n/).map((line, index) => (
         <React.Fragment key={index}>
             {DefiningText(line)}
@@ -18,19 +19,21 @@ export const DefiningText = (text: string) => {
         return <div></div>
     }
    
-
-    if (text[0] === '>') {
-        if (text[1] === ">" && text[2] === ">") {
-            return (<div>{text}</div>)
-        } else if (text[1] === ">") {
-            text = text.replace(">>", "");
-            return (<span className="text-blue-500"  onClick={() => handleScrollToElement(text + "cardid")}>{hoverCard(`${text}cardid`,text)}</span>)
+    function retornos(){
+        if (text[0] === '>') {
+            if (text[1] === ">" && text[2] === ">") {
+                return (<div>{text}</div>)
+            } else if (text[1] === ">") {
+                text = text.replace(">>", "");
+                return (<span className="text-blue-500"  onClick={() => handleScrollToElement(text + "cardid")}>{hoverCard(`${text}cardid`,text)}</span>)
+            } else {
+                return (<div className="text-[var(--greenText)]">{text}</div>)
+            }
         } else {
-            return (<div className="text-[var(--greenText)]">{text}</div>)
+            return (<div>{text}</div>)
         }
-    } else {
-        return (<div>{text}</div>)
     }
+    return retornos();
 }
 
 
@@ -39,7 +42,7 @@ const hoverCard = (id: string,text:string) => {
     const [Target,setTarget] = useState(document.getElementById(id))
     useEffect(() => {
         setTarget(document.getElementById(id));
-    },[id])
+    },[id,text])
     
     if (Target) {
         return (
@@ -59,6 +62,7 @@ interface HtmlStringComponentProps {
   }
   
   const HtmlStringComponent: React.FC<HtmlStringComponentProps> = ({ htmlString }) => {
+    
     return (
       <div
         dangerouslySetInnerHTML={{ __html: htmlString }}

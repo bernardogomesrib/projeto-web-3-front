@@ -44,7 +44,7 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
 
 
 
-    }, []);
+    }, [url]);
     useEffect(() => {
         if (test === 'image') {
             
@@ -97,7 +97,7 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
         height={imageExpanded ? originalSize.height : 150}
         controls={imageExpanded}
         onClick={!imageExpanded?expand:undefined}
-        preload="none"
+        preload="metadata"
       >
         <source src={url} type={"video/"+extension} />
         Seu navegador não suporta o vídeo.
