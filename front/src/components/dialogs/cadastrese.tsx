@@ -27,7 +27,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
         setClose();  // Fecha o diálogo após o cadastro
       } else{
         
-        setError(aux.error)
+        setError(res.error);
       }
     }
   };
@@ -72,8 +72,8 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
               </div>
 
               {error && <div className='w-full h-10 items-center flex gap-2'>
-                <Alert className="flex justify-left" >
-                  <CircleAlert className="h-4 w-4" />
+                <Alert className="flex justify-left text-[var(--font-color-alert)]" >
+                  <CircleAlert className="h-5 w-5 text-[var(--font-color-alert)]" stroke="red" />
                   <AlertTitle>Erro!</AlertTitle>
                   <AlertDescription>
                     {error}

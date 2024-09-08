@@ -33,6 +33,7 @@
     --colorbginpt: #706F6F;
     --placeholdercolor:#b4b3b3;
     --greenText: green;
+    --font-color-alert: red;
   }
 
   .dark {
@@ -64,6 +65,7 @@
     --colorbginpt: #b4b3b3;
     --placeholdercolor:#b4b3b3;
     --greenText: green;
+    --font-color-alert: red;
   }
 }
 body{

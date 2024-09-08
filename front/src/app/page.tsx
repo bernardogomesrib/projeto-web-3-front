@@ -1,8 +1,10 @@
 'use client'
+import { getUser } from "@/components/navbar/navbar-conteudo";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Boards, BoardsPopulares } from "@/lib/boards";
 import { ThreadsRecentes } from "@/lib/threads";
+import { Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -14,7 +16,7 @@ export default function Home() {
   const [boardsPopulares, setBoardsPopulares] = useState<any[]>([]);
   const [ultimasPubs, setUltimasPubs] = useState<any[]>([]);
   const usouUmavez = useRef(false);
-
+  const [admin, setAdmin] = useState(false);
   useEffect(() => {
     async function fetchData() {
       const data = await Boards();
@@ -29,16 +31,26 @@ export default function Home() {
     }
     if (!usouUmavez.current) {
       fetchData();
+
+      const u = getUser();
+      
+        if (u) {
+          if(u.tipo===2){
+            setAdmin(true);
+          }
+        }
+      
     }
 
   }, [])
 
+  
   return (
     <div className="w-[99vw] flex flex-wrap gap-2 items-start justify-center">
 
       <Card className="w-[96%] md:w-[60vw] gap-3 flex flex-wrap text-[var(--font-color)]">
         <CardHeader className="text-4xl font-bold w-full">
-          <h1 className="">Boards</h1>
+          <h1 className="flex items-center flex-row justify-left gap-4">Boards{admin?<Button className="h-6 w-6 p-0"><Plus className="h-5 w-5" /></Button>:null}</h1>
         </CardHeader>
 
 
@@ -57,7 +69,7 @@ export default function Home() {
                 {thread.nome}
               </Button>
               <div className="w-full relative pb-[100%]">
-               {thread.image&& <Image
+                {thread.image && <Image
                   src={thread.image}
                   alt="icone"
                   fill
@@ -76,7 +88,7 @@ export default function Home() {
 
       <Card className="w-full md:w-[35vw] flex flex-wrap p-6 text-[var(--font-color)]">
         <h2 className="font-bold w-full md:w-[35vw] ">Últimas publicações</h2>
-        {ultimasPubs.length>0 ?(ultimasPubs.map((pub, index) => (
+        {ultimasPubs.length > 0 ? (ultimasPubs.map((pub, index) => (
           <Link key={index + "utp"} className="w-full" href={pub.boardId + "/" + pub.id}>
             <Card className="w-full flex flex-wrap p-3 text-[var(--font-color)]">
               <CardTitle className="flex justify-right w-full items-center gap-3">
@@ -94,7 +106,7 @@ export default function Home() {
               </CardContent>
             </Card>
           </Link>
-        ))):(null)}
+        ))) : (null)}
 
       </Card>
 

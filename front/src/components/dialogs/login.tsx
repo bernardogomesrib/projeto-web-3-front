@@ -87,8 +87,8 @@ export function LoginDialog({ Trigger }: { Trigger: string }) {
           </div>
           <div className="text-center mt-4">
             {error? (
-              <Alert className="flex justify-left" >
-                <CircleAlert className="h-4 w-4" />
+              <Alert className="flex justify-left text-[var(--font-color-alert)]" >
+                <CircleAlert className="h-5 w-5" stroke="red"/>
               <AlertTitle>Erro!</AlertTitle>
                 <AlertDescription>
                   {error}
