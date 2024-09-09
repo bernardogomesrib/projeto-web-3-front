@@ -34,7 +34,7 @@ export default function NewThread({ Trigger }: { Trigger: string }) {
         const formData = new FormData(e.currentTarget);
         const local = window.location.href.split('/')[3];
         console.log({formData: formData, local: local, user: user});
-        const answer = await sendNewThread(formData, local);
+        const answer = await sendNewThread(formData, local,aux);
         console.log(answer);
         if(answer.id>0){
             window.location.href = `/${local}/${answer.id}`;

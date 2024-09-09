@@ -65,9 +65,9 @@ export async function Thread(boardId:string,threadId: string) {
 
 // função para criar thread caso anonima ou caso identificada
 
-export async function sendNewThread(formdata: FormData, board: string) {
+export async function sendNewThread(formdata: FormData, board: string,aux:string|null) {
 
-    const aux = localStorage.getItem('user');
+    
     const logic = aux ? '' : '/anonymous';
     const logic2 = aux ? 'BEARER ' + aux : '';
     const url = `${process.env.NEXT_PUBLIC_API_URL}${board}/threads${logic}`;
