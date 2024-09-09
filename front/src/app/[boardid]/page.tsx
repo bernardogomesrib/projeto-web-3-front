@@ -47,8 +47,8 @@ export default function BoardPage ({ params }: { params: { boardid: string } }) 
             <div className="w-full flex justify-center">
               {thread.arquivo && !thread.arquivo.endsWith("undefined") ?(<Image width={150} height={150} src={thread.arquivo} alt={thread.titulo} />): (null)}
             </div>
-            <p className="line-clamp-3 text-center items-center w-full h-[4.9em]" title={thread.mensagem}>
-              {thread.mensagem}
+            <p className="line-clamp-3 text-center items-center w-full h-[4.8em]" title={thread.mensagem}>
+              {thread.mensagem.split(/\r?\n/).map((line:string, index:any) => (<div key={index+"dividindoMensagem"}>{line}</div>))}
             </p>
             <div className='w-full flex justify-evenly'><strong>C:{thread.clicks}</strong> </div>
           </Link>
