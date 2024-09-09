@@ -33,24 +33,24 @@ export default function Home() {
       fetchData();
 
       const u = getUser();
-      
-        if (u) {
-          if(u.tipo===2){
-            setAdmin(true);
-          }
+
+      if (u) {
+        if (u.tipo === 2) {
+          setAdmin(true);
         }
-      
+      }
+
     }
 
   }, [])
 
-  
+
   return (
     <div className="w-[99vw] flex flex-wrap gap-2 items-start justify-center">
 
       <Card className="w-[96%] md:w-[60vw] gap-3 flex flex-wrap text-[var(--font-color)]">
         <CardHeader className="text-4xl font-bold w-full">
-          <h1 className="flex items-center flex-row justify-left gap-4">Boards{admin?<Button className="h-6 w-6 p-0"><Plus className="h-5 w-5" /></Button>:null}</h1>
+          <h1 className="flex items-center flex-row justify-left gap-4">Boards{admin ? <Button className="h-6 w-6 p-0"><Plus className="h-5 w-5" /></Button> : null}</h1>
         </CardHeader>
 
 

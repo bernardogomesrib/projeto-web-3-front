@@ -4,6 +4,7 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardFooter } from '@/components/ui/card';
 
 import BoardImage from '@/components/arquivosRetorno/files';
+import { getUser } from '@/components/navbar/navbar-conteudo';
 import { FormatText } from '@/components/textAgent/textAgent';
 import { Thread } from '@/lib/threads';
 import Link from 'next/link';
@@ -36,13 +37,21 @@ export default function ThreadPage({ params }: { params: { boardid: string, thre
   const usouUmaVez = React.useRef(false);
   const [dialogResponse, setDialogResponse] = useState(false);
   const [loading, setLoading] = useState(true); // Novo estado para controlar o carregamento
-
+  const [isAdmin, setIsAdmin] = useState(false);
 
   
   useEffect(() => {
     if (!usouUmaVez.current) {
       pegaRespostas();
       usouUmaVez.current = true;
+      
+      const u = getUser();
+
+      if (u) {
+        if (u.tipo === 2) {
+          setIsAdmin(true);
+        }
+      }
     }
   }, []); // Array vazio para garantir que seja executado uma vez
   
