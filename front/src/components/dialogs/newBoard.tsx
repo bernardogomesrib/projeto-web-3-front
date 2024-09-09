@@ -91,6 +91,7 @@ export default function NewBoard() {
                             type="file"
                             id="file-upload"
                             style={{ width: '50%' }}
+                            accept=".jpg, .jpeg, .png, .gif, .bmp, .webp, .svg, .tiff"
                         />
                     </div>
                     <div className="grid gap-2">

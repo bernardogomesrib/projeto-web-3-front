@@ -75,6 +75,7 @@ export default function NewThread({ Trigger }: { Trigger: string }) {
                             id="file-upload"
                             name="image"
                             style={{ width: '32%' }}
+                            accept=".jpg, .jpeg, .png, .gif, .bmp, .webp, .svg, .tiff, .mp4, .avi, .mov, .wmv, .mkv, .webm, .flv, .mpeg, .3gp, .pdf"
                         />
                     </div>
                     <div className="grid gap-2">

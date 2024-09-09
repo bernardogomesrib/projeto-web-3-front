@@ -86,21 +86,21 @@ export default function ThreadPage({ params }: { params: { boardid: string, thre
     atualizaRespostas();
   }
 
+  const formatTime =(inpt:any)=>{
+    const stringlt = new Intl.DateTimeFormat('pt-BR', {day: '2-digit',month: '2-digit',year: 'numeric',weekday: 'short',hour: '2-digit',minute: '2-digit',second: '2-digit',}).format(new Date(inpt)).toString().split(",");
+    return `${stringlt[1]} - (${stringlt[0].replace(".","")}) - ${stringlt[2]} `;
+}
   
   return (
     <div className="w-[99vw] flex flex-wrap gap-2 items-start justify-center">
       <Card className="m-1 text-[var(--font-color)] w-[98%]">
         {!loading && (
-          <div className="pl-5">
-            {thread.id} - {thread.userId ? thread.userName : "Anonymous"} - { new Intl.DateTimeFormat('pt-BR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-            }).format(new Date(thread.createdAt))}
+            <div className="pl-5">
+            {thread.id} - {thread.userId ? thread.userName : "Anonymous"} - {formatTime(thread.createdAt)}
             <Link className={buttonVariants({ variant: "default" }) + " text-[var(--font-color)] h-5"} href={"/" + boardid}>
               Voltar
             </Link>
-          </div>
+            </div>
         )}
         {loading && <p>Carregando...</p>} {/* Exibe um carregando enquanto a página é carregada */}
         <h4 className="pl-6">{thread.titulo}</h4>
