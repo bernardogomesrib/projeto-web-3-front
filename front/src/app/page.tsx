@@ -1,10 +1,10 @@
 'use client'
+import NewBoard from "@/components/dialogs/newBoard";
 import { getUser } from "@/components/navbar/navbar-conteudo";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Boards, BoardsPopulares } from "@/lib/boards";
 import { ThreadsRecentes } from "@/lib/threads";
-import { Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -50,7 +50,7 @@ export default function Home() {
 
       <Card className="w-[96%] md:w-[60vw] gap-3 flex flex-wrap text-[var(--font-color)]">
         <CardHeader className="text-4xl font-bold w-full">
-          <h1 className="flex items-center flex-row justify-left gap-4">Boards{admin ? <Button className="h-6 w-6 p-0"><Plus className="h-5 w-5" /></Button> : null}</h1>
+          <h1 className="flex items-center flex-row justify-left gap-4">Boards{admin ? <NewBoard/> : null}</h1>
         </CardHeader>
 
 
@@ -94,7 +94,7 @@ export default function Home() {
               <CardTitle className="flex justify-right w-full items-center gap-3">
                 <Image
                   className="rounded-full aspect-square object-cover"
-                  src={!(pub.arquivo === "" || pub.arquivo === null || pub.arquivo === undefined) ? pub.arquivo : "/fallbackImage.jpg"}
+                  src={!(pub.arquivo === "" || pub.arquivo === null || pub.arquivo === undefined ||pub.arquivo.endsWith("undefined")) ? pub.arquivo : "/fallbackImage.jpg"}
                   alt="thread image"
                   width={72}
                   height={72}

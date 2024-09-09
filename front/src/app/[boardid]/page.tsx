@@ -41,7 +41,7 @@ export default function BoardPage ({ params }: { params: { boardid: string } }) 
           <Button onClick={recarregarThreads}>recarregar</Button>
           <Newthread Trigger={""} />
         </div>
-        {threads.map((thread, index) => (
+        {threads.length>0 ? ( threads.map((thread, index) => (
           <Link href={boardid+"/"+thread.id} key={thread.id+"threadId"} className="w-[97%] sm:w-[25%] md:w-[19.6%] lg:w-[15%] xl:w-[13%] 2xl:w-[11%] flex flex-wrap m-2">
             <h1 className="w-full text-center truncate" title={thread.titulo}>{thread.titulo}</h1>
             <div className="w-full flex justify-center">
@@ -52,7 +52,16 @@ export default function BoardPage ({ params }: { params: { boardid: string } }) 
             </p>
             <div className='w-full flex justify-evenly'><strong>C:{thread.clicks}</strong> </div>
           </Link>
-        )).reverse()}
+        )).reverse()):(<div className="w-[97%] sm:w-[25%] md:w-[19.6%] lg:w-[15%] xl:w-[13%] 2xl:w-[11%] flex flex-wrap m-2">
+        <h1 className="w-full text-center truncate" title="Nada por enquanto">Nada por enquanto</h1>
+        <div className="w-full flex justify-center">
+          <Image width={150} height={150} src="/logo.png" alt="o logo do ITTHREADS" />
+        </div>
+        <p className="line-clamp-3 text-center items-center w-full h-[4.9em]" title="Não tem nada por enquanto">
+          Não tem nada por enquanto
+        </p>
+        <div className='w-full flex justify-evenly'><strong>C:404</strong> </div>
+      </div>)}
       </div>
     );
   

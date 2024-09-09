@@ -59,7 +59,7 @@ export default function NewThread({ Trigger }: { Trigger: string }) {
                             <AvatarFallback>user</AvatarFallback>
                         </Avatar>
                     </div>
-                    <div className="pt-1"><strong>{user?.nome !== undefined ? user.nome : 'Anonimo'}</strong></div>
+                    <div className="pt-1"><strong>{user?.nome !== undefined ? user.nome : 'Anonymous'}</strong></div>
                 </div>
                 <form onSubmit={handleSubmit} className="grid gap-4 py-4">
                     <div className="grid gap-2">

@@ -25,3 +25,16 @@ export async function BoardsPopulares(){
     const data = await result.json();
     return data;
 }
+export async function AdminCreatesNewBoard(formData: FormData, token: string){
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}boards/`, {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "authorization": `BEARER ${token}`
+        },
+        mode: 'cors',
+        body: formData
+    });
+    const data = await result.json();
+    return data;
+}
