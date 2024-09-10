@@ -50,23 +50,28 @@ export default function Home() {
 
       <Card className="w-[96%] md:w-[60vw] gap-3 flex flex-wrap text-[var(--font-color)]">
         <CardHeader className="text-4xl font-bold w-full">
-          <h1 className="flex items-center flex-row justify-left gap-4">Boards{admin ? <NewBoard/> : null}</h1>
+          <h1
+            className="flex items-center flex-row justify-left gap-4"
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}
+          >Boards{admin ? <NewBoard /> : null}</h1>
         </CardHeader>
 
 
         <CardContent className="w-full flex flex-wrap gap-2 justify-evenly">
           {boards.map((thread, index) => (
-            <Link key={index + "links"} href={thread.id} className={"w-[45%] " + buttonVariants({ variant: "default" })}>{thread.nome}</Link>
+            <Link key={index + "links"} href={thread.id} className={"w-[45%] " + buttonVariants({ variant: "default" })}>
+              <span style={{ textShadow: '1px 1px 2px black' }}>{thread.nome}</span>
+            </Link>
           ))}
         </CardContent>
 
         <CardFooter className="flex flex-wrap gap-3 w-full editavel">
-          <h1 className="text-4xl font-bold w-full ">Boards populares</h1>
+          <h1 className="text-4xl font-bold w-full " style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>Boards populares</h1>
 
           {boardsPopulares.map((thread, index) => (
             <Link href={thread.id} key={index + "tp"} className="w-full md:w-[23%] flex flex-wrap items-center">
               <Button className={"w-full " + buttonVariants({ variant: "default" })} >
-                {thread.nome}
+                <span style={{ textShadow: '1px 1px 2px black' }}>{thread.nome}</span>
               </Button>
               <div className="w-full relative pb-[100%]">
                 {thread.image && <Image
@@ -87,14 +92,15 @@ export default function Home() {
 
 
       <Card className="w-full md:w-[35vw] flex flex-wrap p-6 text-[var(--font-color)]">
-        <h2 className="font-bold w-full md:w-[35vw] ">Últimas publicações</h2>
+        <h2 className="font-bold w-full md:w-[35vw] " style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>Últimas publicações</h2>
         {ultimasPubs.length > 0 ? (ultimasPubs.map((pub, index) => (
           <Link key={index + "utp"} className="w-full" href={pub.boardId + "/" + pub.id}>
-            <Card className="w-full flex flex-wrap p-3 text-[var(--font-color)]">
-              <CardTitle className="flex justify-right w-full items-center gap-3">
+            <Card className="w-full flex flex-wrap p-3 text-[var(--font-color)] border transition hover:shadow-lg mb-4" style={{ borderColor: '#ffffff', transition: 'border-color 0.3s ease' }} onMouseEnter={e => e.currentTarget.style.borderColor = '#9340ff'} onMouseLeave={e => e.currentTarget.style.borderColor = '#ffffff'}>
+
+              <CardTitle className="flex justify-right w-full items-center gap-3" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
                 <Image
-                  className="rounded-full aspect-square object-cover"
-                  src={!(pub.arquivo === "" || pub.arquivo === null || pub.arquivo === undefined ||pub.arquivo.endsWith("undefined")) ? pub.arquivo : "/fallbackImage.jpg"}
+                  className="rounded-full aspect-square object-cover border-2 border-[#9340ff] rounded-full"
+                  src={!(pub.arquivo === "" || pub.arquivo === null || pub.arquivo === undefined || pub.arquivo.endsWith("undefined")) ? pub.arquivo : "/fallbackImage.jpg"}
                   alt="thread image"
                   width={72}
                   height={72}
