@@ -38,3 +38,21 @@ export async function AdminCreatesNewBoard(formData: FormData, token: string){
     const data = await result.json();
     return data;
 }
+export async function BoardExiste(id:string){
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}boards/${id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        mode: 'cors'
+    });
+
+    const data = await result.json();
+    if(data){
+        return true;
+    }else{
+        return false;
+    }
+    
+}

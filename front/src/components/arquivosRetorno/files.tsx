@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 
-export default function BoardImage({ url, alt }: { url: string, alt: string }) {
+export default function BoardImage({ url, alt,res }: { url: string, alt: string,res:string }) {
     const [imageExpanded, setImageExpanded] = useState(false);
     const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 });
     const [test, setTest] = useState<string | undefined>(undefined);
@@ -47,28 +47,46 @@ export default function BoardImage({ url, alt }: { url: string, alt: string }) {
     }, [url]);
     useEffect(() => {
         if (test === 'image') {
-            
-            const img = new window.Image();
-            img.src = url;
-            img.onload = () => {
+            if(res){
+                const r = res.split("x");
                 setOriginalSize({
-                    width: img.naturalWidth,
-                    height: img.naturalHeight,
+                    width: parseInt(r[0]),
+                    height: parseInt(r[1]),
                 });
+            }else{
+                const img = new window.Image();
+                img.src = url;
+                img.onload = () => {
+                    setOriginalSize({
+                        width: img.naturalWidth,
+                        height: img.naturalHeight,
+                    });
             };
-        } else if (test === "video") {
-            const video = document.createElement('video');
-            video.src = url;
+            }
             
-            video.addEventListener('loadedmetadata', () => {
+        } else if (test === "video") {
+
+            if(res){
+                const r = res.split("x");
                 setOriginalSize({
-                    width: video.videoWidth,
-                    height: video.videoHeight,
+                    width: parseInt(r[0]),
+                    height: parseInt(r[1]),
                 });
+            }else{
 
-            });
+                const video = document.createElement('video');
+                video.src = url;
+                
+                video.addEventListener('loadedmetadata', () => {
+                    setOriginalSize({
+                        width: video.videoWidth,
+                        height: video.videoHeight,
+                    });
+    
+                });
+                video.load();
+            }
 
-            video.load();
 
         } else if(test==='pdf'){
             setOriginalSize({

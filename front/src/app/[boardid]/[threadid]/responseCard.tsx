@@ -35,7 +35,7 @@ export function ResponseCard({ resp, index, id }: { resp: any, index: number, id
             }).format(new Date(resp.createdAt))}</div>
         <div className="flex p-6 justify-left flex-wrap">
           {resp.arquivo && (
-            <BoardImage url={resp.arquivo} alt={resp.mensagem}/>
+            <BoardImage url={resp.arquivo} alt={resp.mensagem} res={resp.resolution}/>
           )}
           <div className="p-6">{FormatText(resp.mensagem)}</div>
         </div>

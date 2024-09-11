@@ -26,10 +26,10 @@ export async function PegaThreadsDoBoard(board: string) {
         })
         const data = await result.json();
         if(data.error)
-            return [{ id: 69, titulo: "Deu erro ao buscar os threads", mensagem: data.error.name, arquivo: '/errorImage.png' }]
+            return {data:[{ id: 69, titulo: "Deu erro ao buscar os threads", mensagem: data.error.name, arquivo: '/errorImage.png' }],currentPage:1,pages:1,next:null,previous:null};
         return data;
     } catch (err: any) {
-        return [{ id: 69, titulo: "Deu erro ao buscar os threads", mensagem: err.message, arquivo: '/errorImage.png' }]
+        return {data:[{ id: 69, titulo: "Deu erro ao buscar os threads", mensagem: err.message, arquivo: '/errorImage.png' }],currentPage:1,pages:1,next:null,previous:null};
     }
 }
 
@@ -49,10 +49,9 @@ export async function ThreadsRecentes() {
 // esta função é para pegar a thread e as respostas ou apenas a thread, depende se deus quizer é os 2.
 export async function Thread(boardId:string,threadId: string) {
    
-    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${boardId}/${threadId}/content`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${boardId}/threads/${threadId}`, {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json",
             "Accept": "application/json"
         },
         mode: 'cors'
@@ -94,4 +93,12 @@ export async function sendNewThread(formdata: FormData, board: string,aux:string
         const data = await result.json();
         return data;
   
+}
+export async function requestNewPage(url:string){
+    const result = await fetch(url, {
+        method: 'GET',
+        mode: 'cors'
+    });
+    const data = await result.json();
+    return data;
 }

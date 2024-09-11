@@ -63,7 +63,7 @@ export default function ThreadPage({ params }: { params: { boardid: string, thre
       setThread(r);
       setRespostas(r.answers);
       console.log("era pra ter atualizado.")
-      setLoading(false); // Concluiu o carregamento
+      setLoading(false);
       
     }
   };
@@ -103,10 +103,10 @@ export default function ThreadPage({ params }: { params: { boardid: string, thre
             </div>
         )}
         {loading && <p>Carregando...</p>} {/* Exibe um carregando enquanto a página é carregada */}
-        <h4 className="pl-6">{thread.titulo}</h4>
+        <strong className="pl-6">{thread.titulo}</strong>
         <div id="" className="flex p-6 justify-left flex-wrap">
           {thread.arquivo && (
-            <BoardImage url={thread.arquivo as string} alt={thread.titulo}/>
+            <BoardImage url={thread.arquivo as string} alt={thread.titulo} res={thread.resolution}/>
           )}
           <div className="p-6">{FormatText(thread.mensagem)}</div>
         </div>
