@@ -59,7 +59,14 @@ export default function BoardPage({ params }: { params: { boardid: string } }) {
         <Newthread Trigger={""} />
       </div>
       {threads.length > 0 ? (threads.map((thread, index) => (
-        <Link href={boardid + "/" + thread.id} key={thread.id + "threadId"} className="w-[97%] sm:w-[25%] md:w-[19.6%] lg:w-[15%] xl:w-[13%] 2xl:w-[11%] flex flex-wrap m-2">
+        <Link href={boardid + "/" + thread.id} key={thread.id + "threadId"}
+          className="w-[97%] sm:w-[25%] md:w-[19.6%] lg:w-[15%] xl:w-[13%] 2xl:w-[11%] flex flex-wrap m-2  border border-gray-400 rounded-md hover:border-gray-600"
+          style={{ borderColor: '#171717', transition: 'border-color 0.3s ease' }}
+          onMouseEnter={e => e.currentTarget.style.borderColor = '#9340ff'}
+          onMouseLeave={e => e.currentTarget.style.borderColor = '#171717'}>
+
+
+
           <strong className="w-full text-center truncate" title={thread.titulo}>{thread.titulo}</strong>
           <div className="w-full flex justify-center">
             {thread.arquivo && !thread.arquivo.endsWith("undefined") ? (<Image width={150} height={150} src={thread.arquivo} alt={thread.titulo} />) : (null)}

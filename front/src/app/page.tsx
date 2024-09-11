@@ -95,7 +95,10 @@ export default function Home() {
         <h2 className="font-bold w-full md:w-[35vw] " style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>Últimas publicações</h2>
         {ultimasPubs.length > 0 ? (ultimasPubs.map((pub, index) => (
           <Link key={index + "utp"} className="w-full" href={pub.boardId + "/" + pub.id}>
-            <Card className="w-full flex flex-wrap p-3 text-[var(--font-color)] border transition hover:shadow-lg mb-4" style={{ borderColor: '#ffffff', transition: 'border-color 0.3s ease' }} onMouseEnter={e => e.currentTarget.style.borderColor = '#9340ff'} onMouseLeave={e => e.currentTarget.style.borderColor = '#ffffff'}>
+            <Card className="w-full flex flex-wrap p-3 text-[var(--font-color)] border transition hover:shadow-lg mb-4"
+              style={{ borderColor: '#ffffff', transition: 'border-color 0.3s ease' }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = '#9340ff'}
+              onMouseLeave={e => e.currentTarget.style.borderColor = '#ffffff'}>
 
               <CardTitle className="flex justify-right w-full items-center gap-3" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
                 <Image
