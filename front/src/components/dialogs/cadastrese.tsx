@@ -15,7 +15,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
   const [password, setPassword] = useState('');
   const [date, setDate] = useState('');
   const [termos, setTermos] = useState(false);
-  const [error, setError] = useState<null | string>(null);
+  const [error, setError] = useState<null | any[]>(null);
   const executarCadastro = async () => {
     console.log(fullName, email, password, date, termos);
     let aux: string | null | undefined | any = '';
@@ -26,8 +26,7 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
         alert('Cadastrado com sucesso');
         setClose();  // Fecha o diálogo após o cadastro
       } else {
-
-        setError(res.error);
+        setError(res.errors);
       }
     }
   };
@@ -71,15 +70,17 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
                 <Label htmlFor='termos'>Aceito os termos de serviço</Label>
               </div>
 
-              {error && <div className='w-full h-10 items-center flex gap-2'>
-                <Alert className="flex justify-left text-[var(--font-color-alert)]" >
-                  <CircleAlert className="h-5 w-5 text-[var(--font-color-alert)]" stroke="red" />
-                  <AlertTitle>Erro!</AlertTitle>
-                  <AlertDescription>
-                    {error}
-                  </AlertDescription>
-                </Alert>
-              </div>}
+              {error && error.map((err, index) => (
+                <div key={index} className='w-full h-10 items-center flex gap-2'>
+                  <Alert className="flex justify-left text-[var(--font-color-alert)]" >
+                    <CircleAlert className="h-5 w-5 text-[var(--font-color-alert)]" stroke="red" />
+                    <AlertTitle>Erro! - {Object.keys(err)}</AlertTitle>
+                    <AlertDescription>
+                      {Object.values(err).join(', ')}
+                    </AlertDescription>
+                  </Alert>
+                </div>
+              ))}
               <div className='w-full items-center flex justify-center pb-6'>
                 <Button className="bg-[#BF32DC] px-10 text-sm" type="submit" style={{
                   textShadow: `

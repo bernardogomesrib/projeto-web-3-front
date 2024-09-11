@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 // import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { newAnswer } from "@/lib/answer";
+import { newAnswer, newAnswerAnonymous } from "@/lib/answer";
 import jwt from 'jsonwebtoken';
 import { useState } from "react";
 
@@ -33,7 +33,13 @@ export default function NewAnswer({ boardId,threadId,done }: { boardId: string,t
         const formData = new FormData(e.currentTarget);
         
         console.log({formData: formData, local: boardId+"/"+threadId, user: user});
-        const answer = await newAnswer(formData, boardId,threadId,aux);
+        let answer = null;
+        if(user){
+            answer = await newAnswer(formData, boardId,threadId,aux);
+
+        }else{
+            answer = await newAnswerAnonymous(formData, boardId,threadId);
+        }
         console.log(answer);
         if (answer.id) {
             done();

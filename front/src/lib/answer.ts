@@ -18,3 +18,17 @@ export async function newAnswer(formData: FormData, boardId: string,threadId: st
     const data = await result.json();
     return data;
 }
+export async function newAnswerAnonymous(formData: FormData, boardId: string,threadId: string) {
+
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${boardId}/${threadId}/respostas/anonymous`, {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+        },
+        mode: 'cors',
+        body:formData
+    });
+
+    const data = await result.json();
+    return data;
+}
