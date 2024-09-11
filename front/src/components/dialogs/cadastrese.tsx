@@ -18,15 +18,15 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
   const [error, setError] = useState<null | string>(null);
   const executarCadastro = async () => {
     console.log(fullName, email, password, date, termos);
-    let aux: string|null|undefined|any = '';
+    let aux: string | null | undefined | any = '';
     if (termos) {
       const res = await NewUser(email, password, fullName);
       console.log(res);
       if (res.token) {
         alert('Cadastrado com sucesso');
         setClose();  // Fecha o diálogo após o cadastro
-      } else{
-        
+      } else {
+
         setError(res.error);
       }
     }
@@ -81,7 +81,13 @@ export default function Cadastrese({ setClose }: { setClose: () => void }) {
                 </Alert>
               </div>}
               <div className='w-full items-center flex justify-center pb-6'>
-                <Button className="bg-[#BF32DC]" onClick={executarCadastro}>Cadastrar</Button>
+                <Button className="bg-[#BF32DC] px-10 text-sm" type="submit" style={{
+                  textShadow: `
+                  -1px -1px 0 #000,
+                  1px -1px 0 #000,
+                  -1px 1px 0 #000,
+                  1px 1px 0 #000`
+                }} onClick={executarCadastro}>Cadastrar</Button>
               </div>
             </div>
           </div>

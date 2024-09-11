@@ -33,19 +33,19 @@ export default function NewThread({ Trigger }: { Trigger: string }) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const local = window.location.href.split('/')[3];
-        console.log({formData: formData, local: local, user: user});
-        const answer = await sendNewThread(formData, local,aux);
+        console.log({ formData: formData, local: local, user: user });
+        const answer = await sendNewThread(formData, local, aux);
         console.log(answer);
-        if(answer.id>0){
+        if (answer.id > 0) {
             window.location.href = `/${local}/${answer.id}`;
         }
     };
-    
+
 
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className={Trigger}>Criar thread</Button>
+                <Button className={Trigger}> <span style={{ textShadow: '1px 1px 2px black' }}>Criar thread</span></Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[80%] max-h-[90%] overflow-y-auto">
                 <DialogHeader>

@@ -72,7 +72,7 @@ export default function NavbarConteudo({ coisas }: { coisas: any[] }) {
         </div>) : (
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-3">
             {openCadastrese ? (<Cadastrese setClose={() => setOpenCadastrese(!openCadastrese)} />) : (null)}
-            <Button onClick={() => { setOpenCadastrese(true) }}>Cadastre-se</Button>
+            <Button onClick={() => { setOpenCadastrese(true) }}> <span style={{ textShadow: '1px 1px 2px black' }}>Cadastre-se</span></Button>
             <LoginDialog Trigger={""} />
           </div>
         )}
@@ -109,7 +109,7 @@ export default function NavbarConteudo({ coisas }: { coisas: any[] }) {
                 <div className="py-6">
                   <div>
                     {user.nome}
-                    <Button className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 w-full hover:bg-gray-50 hover:text-black bg-transparent text-left flex justify-start" onClick={() => { localStorage.removeItem('user'); window.location.reload(); }}>Sair</Button>
+                    <Button className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 w-full hover:bg-gray-50 hover:text-black bg-transparent text-left flex justify-start" onClick={() => { localStorage.removeItem('user'); window.location.reload(); }}> <span style={{ textShadow: '1px 1px 2px black' }}>Sair</span></Button>
                   </div>
                 </div>
               ) : (
